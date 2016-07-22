@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Rule created="1468958092900" id="4028f6815604a1cb015604b9ae630008" language="beanshell" modified="1468961919394" name="Delete_Entitlements" type="Workflow">
+  <Description>A rule used by a Workflow to determine a step action or variable value.
+
+Note that an Attributes map of all variables from the current WorkflowContext, merged with the arguments from the Step, is also passed into the workflow rule.</Description>
+  <Signature returnType="Object">
+    <Inputs>
+      <Argument name="log">
+        <Description>
+          The log object associated with the SailPointContext.
+        </Description>
+      </Argument>
+      <Argument name="context">
+        <Description>
+          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
+        </Description>
+      </Argument>
+      <Argument name="wfcontext">
+        <Description>
+          The current WorkflowContext.
+        </Description>
+      </Argument>
+      <Argument name="handler">
+        <Description>
+          The workflow handler associated with the current WorkflowContext.
+        </Description>
+      </Argument>
+      <Argument name="workflow">
+        <Description>
+          The current Workflow definition.
+        </Description>
+      </Argument>
+      <Argument name="step">
+        <Description>
+          The current Step.
+        </Description>
+      </Argument>
+      <Argument name="approval">
+        <Description>
+          The current Approval.
+        </Description>
+      </Argument>
+      <Argument name="item">
+        <Description>
+          The WorkItem being processed.
+        </Description>
+      </Argument>
+    </Inputs>
+    <Returns>
+      <Argument name="Object">
+        <Description>
+          The result of the workflow rule; dependent on the rule itself.
+        </Description>
+      </Argument>
+    </Returns>
+  </Signature>
+  <Source>
+import com.triumvir.leaver.Entitlement;
+import sailpoint.object.ProvisioningPlan;
+import sailpoint.object.Identity;
+import sailpoint.object.Custom;
+import java.util.List;
+    
+  ProvisioningPlan plan = new ProvisioningPlan();
+    Entitlement entitlement = new Entitlement();
+  
+    Identity identity = context.getObjectById(Identity.class, quickLinkIdentityId);
+  Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
+  //List exceptionList = custom.get("exception-list-entitlement");
+    plan = entitlement.getProvisioninPlan(identity, context, null);
+  
+  return plan;
+    
+ System.out.println("hello sailpoint");
+  </Source>
+</Rule>
