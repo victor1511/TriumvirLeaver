@@ -13,7 +13,7 @@ import sailpoint.tools.GeneralException;
 
 public class Entitlement 
 {
-	public ProvisioningPlan getProvisioninPlan(Identity identity, SailPointContext context, List <String> exclusionList) throws GeneralException
+	public ProvisioningPlan getProvisioninPlan(Identity identity, SailPointContext context, List <String> exclusionList) throws GeneralException 
 	{
 		System.out.println("Identity -> " + identity.getName());
 		ProvisioningPlan plan = new ProvisioningPlan();
@@ -23,19 +23,27 @@ public class Entitlement
 		List <AccountRequest> listAccountRequest = new ArrayList<AccountRequest>();
 		
 		entitlementsList = identity.getAttributeAssignments();
-		for(AttributeAssignment entitlement : entitlementsList)
+		
+		if(entitlementsList.isEmpty())
 		{
-			AccountRequest accountRequest = new AccountRequest();
-			accountRequest.setApplication(entitlement.getApplicationName());
-			accountRequest.setNativeIdentity(entitlement.getNativeIdentity());
-			accountRequest.setOperation(AccountRequest.Operation.Modify);
+			throw new RuntimeException("The identity doesn't has any entitlement");	
+		}
+		else
+		{
+			for(AttributeAssignment entitlement : entitlementsList)
+			{
+				AccountRequest accountRequest = new AccountRequest();
+				accountRequest.setApplication(entitlement.getApplicationName());
+				accountRequest.setNativeIdentity(entitlement.getNativeIdentity());
+				accountRequest.setOperation(AccountRequest.Operation.Modify);
 			
-			AttributeRequest attributeRequest = new AttributeRequest();
-			attributeRequest.setName(entitlement.getName());
-			attributeRequest.setValue(entitlement.getValue());
-			attributeRequest.setOperation(ProvisioningPlan.Operation.Remove);
-			accountRequest.add(attributeRequest);
-			listAccountRequest.add(accountRequest);
+				AttributeRequest attributeRequest = new AttributeRequest();
+				attributeRequest.setName(entitlement.getName());
+				attributeRequest.setValue(entitlement.getValue());
+				attributeRequest.setOperation(ProvisioningPlan.Operation.Remove);
+				accountRequest.add(attributeRequest);
+				listAccountRequest.add(accountRequest);
+			}
 		}
 		
 		plan.setAccountRequests(listAccountRequest);
