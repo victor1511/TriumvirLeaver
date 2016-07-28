@@ -80,7 +80,6 @@ public class ManualWorkItem {
 		Attributes<String, Object> wItemAttributes = new Attributes<String, Object>();
 		ApprovalSet approvalSet = new ApprovalSet();
 		
-		
 		List <String> appsWithNoProv = getApplicationsWithNoProvSupport(identity, context);
 		for(String app : appsWithNoProv)
 		{

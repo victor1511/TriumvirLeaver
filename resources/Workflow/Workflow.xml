@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE Workflow PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Workflow created="1468355703242" explicitTransitions="true" id="4028f68155e05c970155e0d1f1ca0015" modified="1469055409253" name="Triumvir_Standard_Leaver_Process">
+<Workflow created="1468355703242" explicitTransitions="true" id="4028f68155e05c970155e0d1f1ca0015" modified="1469725265345" name="Triumvir_Standard_Leaver_Process">
   <Variable input="true" name="launcher"/>
   <Variable input="true" name="quickLinkIdentityId"/>
   <Variable input="true" name="request"/>
@@ -73,7 +73,7 @@
     <Arg name="approvingIdentities"/>
     <Arg name="managerEmailTemplate"/>
     <Arg name="ticketId"/>
-    <Arg name="approvalScheme" value="manager"/>
+    <Arg name="approvalScheme" value="none"/>
     <Arg name="allowRequestsWithViolations"/>
     <Arg name="workItemPriority" value="High"/>
     <Arg name="managerElectronicSignature"/>
@@ -133,7 +133,18 @@
 </Source>
       </Script>
     </Transition>
-    <Transition to="ManualWorkFlow"/>
+    <Transition to="ManualWorkFlow">
+      <Script>
+        <Source>import sailpoint.object.Custom;
+
+    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
+    String choise = simpleChoise.get("delete-entitlement");
+
+    if ("no".equals(choise))
+        return true;
+</Source>
+      </Script>
+    </Transition>
   </Step>
   <Step icon="Provision" monitored="true" name="ProvisioningEntitlements" posX="946" posY="277">
     <Arg name="identityEmailTemplate"/>
@@ -169,7 +180,7 @@
     <Arg name="approvingIdentities"/>
     <Arg name="managerEmailTemplate"/>
     <Arg name="ticketId"/>
-    <Arg name="approvalScheme" value="manager"/>
+    <Arg name="approvalScheme" value="none"/>
     <Arg name="allowRequestsWithViolations"/>
     <Arg name="workItemPriority" value="High"/>
     <Arg name="managerElectronicSignature"/>
@@ -190,12 +201,18 @@
     </WorkflowRef>
     <Transition to="Stop"/>
   </Step>
-  <Step action="rule:Delete_Entitlements" icon="Default" monitored="true" name="ManualWorkFlow" posX="793" posY="396" resultVariable="plan"/>
+  <Step action="rule:8a81811b56292cfa0156292f6fde0019" icon="Default" monitored="true" name="ManualWorkFlow" posX="676" posY="413" resultVariable="plan">
+    <Transition to="Generic Step"/>
+  </Step>
   <Step icon="Stop" monitored="true" name="Stop" posX="1130" posY="273"/>
   <Step action="rule:Disable_accounts" icon="Default" monitored="true" name="AccountsPlan" posX="571" posY="163" resultVariable="plan">
     <Transition to="ProvisioningAccounts"/>
   </Step>
-  <Step action="rule:Delete_Entitlements" icon="Default" monitored="true" name="EntitlementsPlan" posX="788" posY="273" resultVariable="plan">
+  <Step action="rule:Delete_Entitlements" icon="Default" monitored="true" name="EntitlementsPlan" posX="789" posY="274" resultVariable="plan">
     <Transition to="ProvisioningEntitlements"/>
   </Step>
+  <Step icon="Default" monitored="true" name="Generic Step" posX="802" posY="468">
+    <Transition to="ResetPassword"/>
+  </Step>
+  <Step action="rule:Change_Password" icon="Default" monitored="true" name="ResetPassword" posX="993" posY="464"/>
 </Workflow>

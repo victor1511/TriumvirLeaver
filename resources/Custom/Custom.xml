@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE Custom PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Custom created="1468513239090" id="8a81811b55ea08050155ea35c032001a" modified="1469722841465" name="Triumvir-standard-leaver">
+  <Attributes>
+    <Map>
+      <entry key="change_password">
+        <value>
+          <Map>
+            <entry key="new_password" value="abcd"/>
+          </Map>
+        </value>
+      </entry>
+      <entry key="create-snapshot" value="no"/>
+      <entry key="delete-entitlement" value="no"/>
+      <entry key="disable-accounts" value="yes"/>
+      <entry key="exception-list">
+        <value>
+          <List>
+            <String>HR System - Employees</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="manual-work-item" value="no"/>
+      <entry key="password-map">
+        <value>
+          <Map>
+            <entry key="Financials" value="abc"/>
+            <entry key="Identity" value="abc"/>
+          </Map>
+        </value>
+      </entry>
+    </Map>
+  </Attributes>
+</Custom>
