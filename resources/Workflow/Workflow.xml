@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE Workflow PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Workflow created="1468355703242" explicitTransitions="true" id="4028f68155e05c970155e0d1f1ca0015" modified="1470264891783" name="Triumvir_Standard_Leaver_Process">
+<Workflow created="1468355703242" explicitTransitions="true" id="4028f68155e05c970155e0d1f1ca0015" modified="1470349972685" name="Triumvir_Standard_Leaver_Process">
   <Variable input="true" name="launcher"/>
   <Variable input="true" name="quickLinkIdentityId"/>
   <Variable input="true" name="request"/>
@@ -228,5 +228,14 @@
     <Transition to="MoveOUPlan"/>
   </Step>
   <Step icon="Email" monitored="true" name="HideEmail" posX="1041" posY="171"/>
-  <Step action="rule:8a81811b5652834901565292589e0006" icon="Default" monitored="true" name="MoveOUPlan" posX="1147" posY="77" resultVariable="plan"/>
+  <Step action="rule:Move_OU" icon="Default" monitored="true" name="MoveOUPlan" posX="1143" posY="74" resultVariable="plan">
+    <Transition to="ProvMoveOU"/>
+  </Step>
+  <Step icon="Default" monitored="true" name="ProvMoveOU" posX="1143" posY="208">
+    <Arg name="identityName" value="ref:identityName"/>
+    <Arg name="plan" value="ref:plan"/>
+    <WorkflowRef>
+      <Reference class="sailpoint.object.Workflow" id="4028f6815360fa48015360fcafc5003d" name="LCM Provisioning"/>
+    </WorkflowRef>
+  </Step>
 </Workflow>

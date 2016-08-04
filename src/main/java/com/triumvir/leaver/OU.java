@@ -12,6 +12,7 @@ import sailpoint.object.ProvisioningPlan.AttributeRequest;
 public class OU 
 {
 	Identity identity;
+	String [] attrSplited;
 	
 	public OU(Identity identity)
 	{
@@ -20,12 +21,15 @@ public class OU
 	
 	public ProvisioningPlan moveOU(String attributeValue)
 	{
+		
 		if(attributeValue == null)
 		{
 			throw new RuntimeException(String.format("The attribute for the identity %s is null", identity.getName()));
 		}
 		else
 		{
+			attrSplited = attributeValue.split(",");
+			
 			List <Link> accounts = identity.getLinks();
 			ProvisioningPlan plan = new ProvisioningPlan();
 			List<AccountRequest> accReqList = new ArrayList<AccountRequest>();
@@ -34,26 +38,26 @@ public class OU
 			{
 				if("Active Directory - Direct".equals(account.getApplication().getType()))
 				{
-					plan.setAccountRequests(setNewAttribute(account, attributeValue, accReqList));
+					plan.setAccountRequests(setNewAttribute(account, accReqList));
 				} else if("OpenLDAP - Direct".equals(account.getApplication().getType()))
 				{
-					plan.setAccountRequests(setNewAttribute(account, attributeValue, accReqList));
+					plan.setAccountRequests(setNewAttribute(account, accReqList));
 				}	
 			}
 			return plan;
 		}
 	}
 	
-	private List<AccountRequest> setNewAttribute(Link account, String attributeValue, List<AccountRequest>accReqList)
+	private List<AccountRequest> setNewAttribute(Link account, List<AccountRequest>accReqList)
 	{	
-		String newValue = nativeIdentityString(account.getNativeIdentity(), attributeValue);
+		String newValue = nativeIdentityString(account.getNativeIdentity());
 		AccountRequest accRequest = new AccountRequest();
 		accRequest.setApplication(account.getApplicationName());
 		accRequest.setNativeIdentity(account.getNativeIdentity());
 		accRequest.setOperation(AccountRequest.Operation.Modify);
 		
 		AttributeRequest attRequest = new AttributeRequest();
-		attRequest.setName("nativeIdentity");
+		attRequest.setName(attrSplited[0]);
 		attRequest.setValue(newValue);
 		attRequest.setOperation(ProvisioningPlan.Operation.Set);
 		accRequest.add(attRequest);
@@ -61,7 +65,7 @@ public class OU
 		return accReqList;
 	}
 	
-	private String nativeIdentityString(String nativeIdentity, String attributeValue)
+	private String nativeIdentityString(String nativeIdentity)
 	{
 		String [] stringSplited = nativeIdentity.split(",");
 		StringBuilder resultNativeIdentity = new StringBuilder();
@@ -70,12 +74,12 @@ public class OU
 		{
 			if(element.contains("cn"))
 			{
-				element = "cn=" + identity.getName();
+				element = "cn=" + attrSplited[1];
 				resultNativeIdentity.append(element);
 				resultNativeIdentity.append(",");
 			}else if(element.contains("ou"))
 			 {
-				 element = "ou=" + attributeValue;
+				 element = "ou=" + attrSplited[0];
 				 resultNativeIdentity.append(element);
 			 }else
 			 {
