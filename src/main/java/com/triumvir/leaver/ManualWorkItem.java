@@ -18,7 +18,7 @@ import sailpoint.persistence.Sequencer;
 import sailpoint.tools.GeneralException;
 
 public class ManualWorkItem {
-	final static Logger logger = Logger.getLogger(ManualWorkItem.class);
+	final static Logger logger = Logger.getLogger("sailpoint");
 	
 	private List<String> getApplicationsWithNoProvSupport(Identity identity, SailPointContext context) throws GeneralException
 	{
@@ -29,7 +29,9 @@ public class ManualWorkItem {
 		
 		if(accounts.isEmpty())
 		{
-			throw new RuntimeException("This identity " + identity.getName() + " doesn't has any accounts");
+			String message = String.format("This identity %s doesn't has any accounts", identity.getName());
+			logger.fatal(message);
+			throw new RuntimeException(message);
 		}
 		else
 		{

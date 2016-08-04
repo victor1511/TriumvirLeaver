@@ -9,7 +9,7 @@ import sailpoint.api.SailPointContext;
 import sailpoint.object.IdentitySnapshot;
 
 public class Snapshot {
-	Log log = LogFactory.getLog(Snapshot.class);
+	Log log = LogFactory.getLog("sailpoint");
 	
 	public void createSnapshot(Identity person, SailPointContext context)
 	{
@@ -19,7 +19,7 @@ public class Snapshot {
 			IdentitySnapshot identitySnapshot = archiver.createSnapshot(person);
 			context.saveObject(identitySnapshot);
 			context.commitTransaction();
-			log.info("Making the identity snashot...");
+			log.info(String.format("Snapshot created for %s", person));
 		} 
 		catch (GeneralException e)
 		{

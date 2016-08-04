@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE Workflow PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Workflow created="1468355703242" explicitTransitions="true" id="4028f68155e05c970155e0d1f1ca0015" modified="1469725265345" name="Triumvir_Standard_Leaver_Process">
+<Workflow created="1468355703242" explicitTransitions="true" id="4028f68155e05c970155e0d1f1ca0015" modified="1470264891783" name="Triumvir_Standard_Leaver_Process">
   <Variable input="true" name="launcher"/>
   <Variable input="true" name="quickLinkIdentityId"/>
   <Variable input="true" name="request"/>
@@ -10,7 +10,7 @@
   <Step icon="Start" monitored="true" name="Start" posX="99" posY="72">
     <Transition to="Init"/>
   </Step>
-  <Step icon="Task" monitored="true" name="Init" posX="236" posY="72">
+  <Step icon="Task" monitored="true" name="Init" posX="195" posY="72">
     <Transition to="CreateSnapshot">
       <Script>
         <Source>import sailpoint.object.Custom;
@@ -36,10 +36,10 @@
       </Script>
     </Transition>
   </Step>
-  <Step action="rule:Identity_Snapshot" icon="Task" monitored="true" name="CreateSnapshot" posX="449" posY="69">
+  <Step action="rule:Identity_Snapshot" icon="Task" monitored="true" name="CreateSnapshot" posX="380" posY="68">
     <Transition to="DisableAccounts"/>
   </Step>
-  <Step icon="Provision" monitored="true" name="ProvisioningAccounts" posX="679" posY="171">
+  <Step icon="Provision" monitored="true" name="ProvisioningAccounts" posX="585" posY="71">
     <Arg name="identityEmailTemplate"/>
     <Arg name="enableRetryRequest"/>
     <Arg name="securityOfficerElectronicSignature"/>
@@ -94,7 +94,7 @@
     </WorkflowRef>
     <Transition to="RemoveEntitlements"/>
   </Step>
-  <Step icon="Catches" monitored="true" name="DisableAccounts" posX="313" posY="205">
+  <Step icon="Catches" monitored="true" name="DisableAccounts" posX="302" posY="178">
     <Transition to="AccountsPlan">
       <Script>
         <Source>import sailpoint.object.Custom;
@@ -120,7 +120,7 @@
       </Script>
     </Transition>
   </Step>
-  <Step icon="Catches" monitored="true" name="RemoveEntitlements" posX="510" posY="283">
+  <Step icon="Catches" monitored="true" name="RemoveEntitlements" posX="509" posY="174">
     <Transition to="EntitlementsPlan">
       <Script>
         <Source>import sailpoint.object.Custom;
@@ -146,7 +146,7 @@
       </Script>
     </Transition>
   </Step>
-  <Step icon="Provision" monitored="true" name="ProvisioningEntitlements" posX="946" posY="277">
+  <Step icon="Provision" monitored="true" name="ProvisioningEntitlements" posX="805" posY="71">
     <Arg name="identityEmailTemplate"/>
     <Arg name="enableRetryRequest"/>
     <Arg name="securityOfficerElectronicSignature"/>
@@ -199,20 +199,34 @@
     <WorkflowRef>
       <Reference class="sailpoint.object.Workflow" id="4028f6815360fa48015360fcafc5003d" name="LCM Provisioning"/>
     </WorkflowRef>
-    <Transition to="Stop"/>
+    <Transition to="ManualWorkFlow"/>
   </Step>
-  <Step action="rule:8a81811b56292cfa0156292f6fde0019" icon="Default" monitored="true" name="ManualWorkFlow" posX="676" posY="413" resultVariable="plan">
-    <Transition to="Generic Step"/>
+  <Step action="rule:8a81811b56292cfa0156292f6fde0019" icon="Default" monitored="true" name="ManualWorkFlow" posX="737" posY="170" resultVariable="plan">
+    <Transition to="EmailPlan"/>
   </Step>
-  <Step icon="Stop" monitored="true" name="Stop" posX="1130" posY="273"/>
-  <Step action="rule:Disable_accounts" icon="Default" monitored="true" name="AccountsPlan" posX="571" posY="163" resultVariable="plan">
+  <Step action="rule:Disable_accounts" icon="Default" monitored="true" name="AccountsPlan" posX="482" posY="71" resultVariable="plan">
     <Transition to="ProvisioningAccounts"/>
   </Step>
-  <Step action="rule:Delete_Entitlements" icon="Default" monitored="true" name="EntitlementsPlan" posX="789" posY="274" resultVariable="plan">
+  <Step action="rule:Delete_Entitlements" icon="Default" monitored="true" name="EntitlementsPlan" posX="700" posY="70" resultVariable="plan">
     <Transition to="ProvisioningEntitlements"/>
   </Step>
-  <Step icon="Default" monitored="true" name="Generic Step" posX="802" posY="468">
-    <Transition to="ResetPassword"/>
+  <Step action="rule:-- Select Rule --" icon="Default" monitored="true" name="EmailPlan" posX="875" posY="171" resultVariable="plan">
+    <Transition to="ResetPassword">
+      <Script>
+        <Source>import sailpoint.object.Custom;
+
+    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
+    String choise = simpleChoise.get("hide-email");
+
+    if ("no".equals(choise))
+        return true;</Source>
+      </Script>
+    </Transition>
+    <Transition to="HideEmail"/>
   </Step>
-  <Step action="rule:Change_Password" icon="Default" monitored="true" name="ResetPassword" posX="993" posY="464"/>
+  <Step action="rule:8a81811b562de6a30156324e15da00e7" icon="Undo" monitored="true" name="ResetPassword" posX="1036" posY="77">
+    <Transition to="MoveOUPlan"/>
+  </Step>
+  <Step icon="Email" monitored="true" name="HideEmail" posX="1041" posY="171"/>
+  <Step action="rule:8a81811b5652834901565292589e0006" icon="Default" monitored="true" name="MoveOUPlan" posX="1147" posY="77" resultVariable="plan"/>
 </Workflow>

@@ -18,7 +18,7 @@ import sailpoint.tools.GeneralException;
 
 public class Account 
 {
-	Log log = LogFactory.getLog(Snapshot.class);
+	Log log = LogFactory.getLog(Account.class);
 	
 	public Account() 
 	{

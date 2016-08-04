@@ -1,54 +1,83 @@
 package com.triumvir.leaver;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import sailpoint.object.Identity;
 import sailpoint.object.Link;
+import sailpoint.object.ProvisioningPlan;
+import sailpoint.object.ProvisioningPlan.AccountRequest;
+import sailpoint.object.ProvisioningPlan.AttributeRequest;
+import sailpoint.tools.GeneralException;
 
 public class Password 
 {
 	private Identity identity;
+	List <AccountRequest> accountsRequestList = new ArrayList<AccountRequest>();
+	Log log = LogFactory.getLog("sailpoint");
 	
 	public Password(Identity identity)
 	{
 		this.identity = identity;
 	}
-	
-	public Identity changePassword(List<String> appListToReset)
+		
+	public ProvisioningPlan changePassword(Map<String, String> accountsToChangePass) throws GeneralException
 	{ 
 		List <Link> accounts =  identity.getLinks();
+		ProvisioningPlan plan = new ProvisioningPlan();
+		
 		if(accounts.isEmpty())
 		{
-			throw new RuntimeException("The Identity " + identity.getName() + "does not have applications");
+			throw new RuntimeException(String.format("The Identity %s does not have applications", identity.getName()));
 		}
-		for(Link account : accounts)
+		
+		for(String key : accountsToChangePass.keySet())
 		{
-			for(String application : appListToReset)
+			if(key != null)
 			{
-				if(application.equals(account.getName()))
-				{
-					System.out.println(account.getApplication().getAttributes());
-				}
-			}
+				provisioning(key, accountsToChangePass.get(key));
+			}		
 		}
+		plan.setAccountRequests(accountsRequestList);
+		System.out.println(plan.toXml());
+		return plan;
+	}
+	
+	public Identity changeIdentityPassword(Map<String, String> accountsToChangePass)
+	{	
+		String newPassword = accountsToChangePass.remove("Identity");
+		identity.setPassword(newPassword);
 		return identity;
 	}
 	
-	public Identity changePassword(Map<String, String> accountsToChangePass)
-	{	
-		if(accountsToChangePass.isEmpty())
+	private void provisioning(String appName, Object appValue) throws GeneralException
+	{
+		AccountRequest acRequest = new AccountRequest();
+		AttributeRequest atRequest = new AttributeRequest();	
+		String nativeIdentity = "";
+		List <Link> accounts = identity.getLinks();
+	
+		for(Link account : accounts)
 		{
-			throw new RuntimeException("No accounts to change password");
-		}
-		else
-		{
-			String newPassword = accountsToChangePass.get("Identity");
-			identity.setPassword(newPassword);
+			if(account.getApplicationName().equals(appName))
+			{
+				nativeIdentity = account.getNativeIdentity();
+			}
 		}
 		
-		//TODO get values from for the other applications.
+		acRequest.setApplication(appName);
+		acRequest.setNativeIdentity(nativeIdentity);
+		acRequest.setOperation(AccountRequest.Operation.Modify);
 		
-		return identity;
+		atRequest.setName("password");
+		atRequest.setValue(appValue);
+		atRequest.setOperation(ProvisioningPlan.Operation.Set);
+		acRequest.add(atRequest);
+		
+		accountsRequestList.add(acRequest);
 	}
 }
