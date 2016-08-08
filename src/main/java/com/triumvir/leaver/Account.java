@@ -63,6 +63,31 @@ public class Account
 		return plan;
 	}
 	
+	public ProvisioningPlan deleteAccounts(Identity identity, List<String>exceptionList)
+	{
+		List<Link> accounts = identity.getLinks();
+		if(accounts == null)
+		{
+			throw new RuntimeException(String.format("The Identity %s doesn't have applications", identity.getName()));
+		}
+		else
+		{
+			List<AccountRequest> accountList = new ArrayList<AccountRequest>();
+			for(Link account : accounts)
+			{
+				AccountRequest accRequest = new AccountRequest();
+				accRequest.setApplication(account.getApplicationName());
+				accRequest.setInstance(account.getInstance());
+				accRequest.setNativeIdentity(account.getNativeIdentity());
+				accRequest.setOperation(AccountRequest.Operation.Delete);
+				accountList.add(accRequest);
+			}
+			ProvisioningPlan plan = new ProvisioningPlan();
+			plan.setAccountRequests(accountList);
+			return plan;
+		}
+	}
+	
 	private List<AccountRequest> getAccountsForProvisioning(List <AccountRequest> accountsList, List <String> exclusionList)
 	{
 		List <AccountRequest> tempList = new ArrayList<AccountRequest>();

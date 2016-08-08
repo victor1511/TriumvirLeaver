@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE Workflow PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Workflow created="1468355703242" explicitTransitions="true" id="4028f68155e05c970155e0d1f1ca0015" modified="1470349972685" name="Triumvir_Standard_Leaver_Process">
+<Workflow created="1468355703242" explicitTransitions="true" id="4028f68155e05c970155e0d1f1ca0015" modified="1470683036465" name="Triumvir_Standard_Leaver_Process">
   <Variable input="true" name="launcher"/>
   <Variable input="true" name="quickLinkIdentityId"/>
   <Variable input="true" name="request"/>
@@ -224,16 +224,166 @@
     </Transition>
     <Transition to="HideEmail"/>
   </Step>
-  <Step action="rule:8a81811b562de6a30156324e15da00e7" icon="Undo" monitored="true" name="ResetPassword" posX="1036" posY="77">
+  <Step action="rule:8a81811b562de6a30156324e15da00e7" icon="Undo" monitored="true" name="ResetPassword" posX="1022" posY="65">
     <Transition to="MoveOUPlan"/>
   </Step>
-  <Step icon="Email" monitored="true" name="HideEmail" posX="1041" posY="171"/>
-  <Step action="rule:Move_OU" icon="Default" monitored="true" name="MoveOUPlan" posX="1143" posY="74" resultVariable="plan">
-    <Transition to="ProvMoveOU"/>
+  <Step icon="Email" monitored="true" name="HideEmail" posX="1020" posY="170"/>
+  <Step action="rule:Move_OU" icon="Default" monitored="true" name="MoveOUPlan" posX="1129" posY="65" resultVariable="plan">
+    <Transition to="ProvMoveOU">
+      <Script>
+        <Source>import sailpoint.object.Custom;
+
+    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
+    String choise = simpleChoise.get("move-ou");
+
+    if ("yes".equals(choise))
+        return true;
+</Source>
+      </Script>
+    </Transition>
+    <Transition to="DeleteAccountsPlan">
+      <Script>
+        <Source>import sailpoint.object.Custom;
+
+    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
+    String choise = simpleChoise.get("move-ou");
+
+    if ("no".equals(choise))
+        return true;
+</Source>
+      </Script>
+    </Transition>
   </Step>
-  <Step icon="Default" monitored="true" name="ProvMoveOU" posX="1143" posY="208">
-    <Arg name="identityName" value="ref:identityName"/>
+  <Step icon="Default" monitored="true" name="ProvMoveOU" posX="1302" posY="57">
+    <Arg name="identityEmailTemplate"/>
+    <Arg name="enableRetryRequest"/>
+    <Arg name="securityOfficerElectronicSignature"/>
+    <Arg name="fallbackApprover"/>
+    <Arg name="endOnManualWorkItems"/>
+    <Arg name="userEmailTemplate"/>
+    <Arg name="policiesToCheck"/>
+    <Arg name="project"/>
+    <Arg name="workItemComments"/>
+    <Arg name="identityRequestId"/>
+    <Arg name="approvalSplitPoint"/>
+    <Arg name="source"/>
+    <Arg name="identityDisplayName"/>
+    <Arg name="foregroundProvisioning" value="true"/>
+    <Arg name="ownerElectronicSignature"/>
+    <Arg name="batchRequestItemId"/>
+    <Arg name="splitPlans"/>
+    <Arg name="doRefresh" value="true"/>
     <Arg name="plan" value="ref:plan"/>
+    <Arg name="flow"/>
+    <Arg name="identityElectronicSignature"/>
+    <Arg name="identityName" value="ref:identityName"/>
+    <Arg name="approvalSet"/>
+    <Arg name="violationReviewDecision"/>
+    <Arg name="filterRejects"/>
+    <Arg name="splitProjects"/>
+    <Arg name="requesterEmailTemplate" value="LCM Manager Notification"/>
+    <Arg name="approvalEmailTemplate" value="Work Item Comment"/>
+    <Arg name="ticketManagementApplication"/>
+    <Arg name="securityOfficerName"/>
+    <Arg name="approvingIdentities"/>
+    <Arg name="managerEmailTemplate"/>
+    <Arg name="ticketId"/>
+    <Arg name="approvalScheme" value="manager"/>
+    <Arg name="allowRequestsWithViolations"/>
+    <Arg name="workItemPriority" value="High"/>
+    <Arg name="managerElectronicSignature"/>
+    <Arg name="requireViolationReviewComments"/>
+    <Arg name="splitApprovalSet"/>
+    <Arg name="approvalMode"/>
+    <Arg name="trace" value="true"/>
+    <Arg name="endOnProvisioningForms"/>
+    <Arg name="splitWorkItemComments"/>
+    <Arg name="notificationScheme" value="requester"/>
+    <Arg name="policyViolations"/>
+    <Arg name="policyScheme"/>
+    <Arg name="setPreviousApprovalDecisions"/>
+    <Arg name="optimisticProvisioning"/>
+    <Arg name="securityOfficerEmailTemplate"/>
+    <WorkflowRef>
+      <Reference class="sailpoint.object.Workflow" id="4028f6815360fa48015360fcafc5003d" name="LCM Provisioning"/>
+    </WorkflowRef>
+  </Step>
+  <Step action="rule:Delete_accounts" icon="Default" monitored="true" name="DeleteAccountsPlan" posX="1146" posY="183" resultVariable="plan">
+    <Transition to="ProvisioningDeleteAccounts">
+      <Script>
+        <Source>import sailpoint.object.Custom;
+
+    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
+    String choise = simpleChoise.get("delete-accounts");
+
+    if ("yes".equals(choise))
+        return true;
+</Source>
+      </Script>
+    </Transition>
+    <Transition to="AccountDeleteProvisioning">
+      <Script>
+        <Source>import sailpoint.object.Custom;
+
+    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
+    String choise = simpleChoise.get("delete-accounts");
+
+    if ("no".equals(choise))
+        return true;
+</Source>
+      </Script>
+    </Transition>
+  </Step>
+  <Step icon="Default" monitored="true" name="ProvisioningDeleteAccounts" posX="1306" posY="181">
+    <Arg name="identityEmailTemplate"/>
+    <Arg name="enableRetryRequest"/>
+    <Arg name="securityOfficerElectronicSignature"/>
+    <Arg name="fallbackApprover"/>
+    <Arg name="endOnManualWorkItems"/>
+    <Arg name="userEmailTemplate"/>
+    <Arg name="policiesToCheck"/>
+    <Arg name="project"/>
+    <Arg name="workItemComments"/>
+    <Arg name="identityRequestId"/>
+    <Arg name="approvalSplitPoint"/>
+    <Arg name="source"/>
+    <Arg name="identityDisplayName"/>
+    <Arg name="foregroundProvisioning"/>
+    <Arg name="ownerElectronicSignature"/>
+    <Arg name="batchRequestItemId"/>
+    <Arg name="splitPlans"/>
+    <Arg name="doRefresh"/>
+    <Arg name="plan" value="ref:plan"/>
+    <Arg name="flow"/>
+    <Arg name="identityElectronicSignature"/>
+    <Arg name="identityName" value="ref:identityName"/>
+    <Arg name="approvalSet"/>
+    <Arg name="violationReviewDecision"/>
+    <Arg name="filterRejects"/>
+    <Arg name="splitProjects"/>
+    <Arg name="requesterEmailTemplate"/>
+    <Arg name="approvalEmailTemplate"/>
+    <Arg name="ticketManagementApplication"/>
+    <Arg name="securityOfficerName"/>
+    <Arg name="approvingIdentities"/>
+    <Arg name="managerEmailTemplate"/>
+    <Arg name="ticketId"/>
+    <Arg name="approvalScheme"/>
+    <Arg name="allowRequestsWithViolations"/>
+    <Arg name="workItemPriority"/>
+    <Arg name="managerElectronicSignature"/>
+    <Arg name="requireViolationReviewComments"/>
+    <Arg name="splitApprovalSet"/>
+    <Arg name="approvalMode"/>
+    <Arg name="trace"/>
+    <Arg name="endOnProvisioningForms"/>
+    <Arg name="splitWorkItemComments"/>
+    <Arg name="notificationScheme"/>
+    <Arg name="policyViolations"/>
+    <Arg name="policyScheme"/>
+    <Arg name="setPreviousApprovalDecisions"/>
+    <Arg name="optimisticProvisioning"/>
+    <Arg name="securityOfficerEmailTemplate"/>
     <WorkflowRef>
       <Reference class="sailpoint.object.Workflow" id="4028f6815360fa48015360fcafc5003d" name="LCM Provisioning"/>
     </WorkflowRef>

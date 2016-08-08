@@ -1,69 +1,37 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Rule created="1470264137886" id="8a81811b5652834901565292589e0006" language="beanshell" modified="1470347052518" name="Move_OU" type="Workflow">
-  <Description>A rule used by a Workflow to determine a step action or variable value.
-
-Note that an Attributes map of all variables from the current WorkflowContext, merged with the arguments from the Step, is also passed into the workflow rule.</Description>
-  <Signature returnType="Object">
-    <Inputs>
-      <Argument name="log">
-        <Description>
-          The log object associated with the SailPointContext.
-        </Description>
-      </Argument>
-      <Argument name="context">
-        <Description>
-          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
-        </Description>
-      </Argument>
-      <Argument name="wfcontext">
-        <Description>
-          The current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="handler">
-        <Description>
-          The workflow handler associated with the current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="workflow">
-        <Description>
-          The current Workflow definition.
-        </Description>
-      </Argument>
-      <Argument name="step">
-        <Description>
-          The current Step.
-        </Description>
-      </Argument>
-      <Argument name="approval">
-        <Description>
-          The current Approval.
-        </Description>
-      </Argument>
-      <Argument name="item">
-        <Description>
-          The WorkItem being processed.
-        </Description>
-      </Argument>
-    </Inputs>
-    <Returns>
-      <Argument name="Object">
-        <Description>
-          The result of the workflow rule; dependent on the rule itself.
-        </Description>
-      </Argument>
-    </Returns>
-  </Signature>
-  <Source>import com.triumvir.leaver.OU;
-import sailpoint.object.Identity;
-import sailpoint.object.Custom;
-import sailpoint.object.ProvisioningPlan;
-
-    Identity identity = context.getObjectById(Identity.class, quickLinkIdentityId);
-    Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-    String valueOU = custom.get(identity.getName());
-    OU ouClass= new OU(identity);
-    ProvisioningPlan plan = ouClass.moveOU(valueOU);
-    System.out.println(plan.toXml());</Source>
-</Rule>
+<!DOCTYPE Custom PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<Custom created="1468513239090" id="8a81811b55ea08050155ea35c032001a" modified="1470676680709" name="Triumvir-standard-leaver">
+  <Attributes>
+    <Map>
+      <entry key="Alan.Bradley" value="groups,Contractors"/>
+      <entry key="change_password">
+        <value>
+          <Map>
+            <entry key="new_password" value="abcd"/>
+          </Map>
+        </value>
+      </entry>
+      <entry key="create-snapshot" value="no"/>
+      <entry key="delete-accounts" value="yes"/>
+      <entry key="delete-entitlement" value="no"/>
+      <entry key="disable-accounts" value="no"/>
+      <entry key="exception-list">
+        <value>
+          <List>
+            <String>HR System - Employees</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="hide-email" value="no"/>
+      <entry key="manual-work-item" value="no"/>
+      <entry key="move-ou" value="no"/>
+      <entry key="password-map">
+        <value>
+          <Map>
+            <entry key="Financials" value="abc"/>
+          </Map>
+        </value>
+      </entry>
+    </Map>
+  </Attributes>
+</Custom>
