@@ -4,7 +4,11 @@
   <Variable input="true" name="launcher"/>
   <Variable input="true" name="quickLinkIdentityId"/>
   <Variable input="true" name="request"/>
-  <Variable initializer="script:identityName = launcher;" name="identityName"/>
+  <Variable name="identityName">
+    <Script>
+      <Source>import sailpoint.object.Identity;  Identity identity = context.getObjectById(Identity.class, quickLinkIdentityId); return identity.getName();</Source>
+    </Script>
+  </Variable>
   <Variable input="true" name="plan"/>
   <Description>Workflow to handle the leaves process</Description>
   <Step icon="Start" monitored="true" name="Start" posX="99" posY="72">
