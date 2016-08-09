@@ -56,22 +56,20 @@ Note that an Attributes map of all variables from the current WorkflowContext, m
     </Returns>
   </Signature>
   <Source>
-import com.triumvir.leaver.Entitlement;
+import com.triumvir.leaver.EntitlementOperations;
 import sailpoint.object.ProvisioningPlan;
 import sailpoint.object.Identity;
 import sailpoint.object.Custom;
 import java.util.List;
-    
-  ProvisioningPlan plan = new ProvisioningPlan();
-    Entitlement entitlement = new Entitlement();
+
+    ProvisioningPlan plan = new ProvisioningPlan();
+    EntitlementOperations entitlement = new EntitlementOperations();
   
     Identity identity = context.getObjectById(Identity.class, quickLinkIdentityId);
-  Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-  //List exceptionList = custom.get("exception-list-entitlement");
-    plan = entitlement.getProvisioninPlan(identity, context, null);
-  
-  return plan;
+    Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
     
- System.out.println("hello sailpoint");
+  //List exceptionList = custom.get("exception-list-entitlement");
+    plan = entitlement.getDeleteEntitlementProvisioninPlan(identity, context, null);
+    return plan;
   </Source>
 </Rule>
