@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Rule created="1469569789918" id="8a81811b56292cfa0156292f6fde0019" language="beanshell" modified="1469642451841" name="Manual_WorkItem" type="Workflow">
+<Rule created="1469829121974" id="8a81811b56383bc0015638a487b60032" language="beanshell" modified="1470084315304" name="Hide_Email" type="Workflow">
   <Description>A rule used by a Workflow to determine a step action or variable value.
 
 Note that an Attributes map of all variables from the current WorkflowContext, merged with the arguments from the Step, is also passed into the workflow rule.</Description>
@@ -55,23 +55,22 @@ Note that an Attributes map of all variables from the current WorkflowContext, m
       </Argument>
     </Returns>
   </Signature>
-  <Source>import com.triumvir.leaver.ManualWorkItem;
+  <Source>/*import com.triumvir.leaver.Email;
+import com.triumvir.leaver.ProvisioningExecutor;
+import sailpoint.object.ProvisioningPlan plan;
 import sailpoint.object.Identity;
-import sailpoint.object.WorkItem;
 import sailpoint.object.Custom;
 
     Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-    String choise = simpleChoise.get("manual-work-item");
+    String choise = simpleChoise.get("hide-email");
 
     if ("yes".equals(choise))
     {
-        Identity identity = context.getObjectById(Identity.class, quickLinkIdentityId);
-        ManualWorkItem wItem = new ManualWorkItem();
-        Identity requester = context.getObjectByName(Identity.class, launcher);
-        System.out.println(launcher.getClass());
-
-       WorkItem workItem = wItem.createWorkItem(identity, context, requester);
-       context.saveObject(workItem);
-       context.commitTransaction();
-    }</Source>
+      Identity identity = context.getObjectById(Identity.class, quickLinkIdentityId);
+          Email email = new Email();
+          ProvisoningPlan plan = email.hideEmail();
+          System.out.println(plan.toXml());
+          ProvioningExecutor provExecutor = new ProvisioningExecutor();
+         provExecutor.executeProvisioning(plan, context);
+    }*/</Source>
 </Rule>

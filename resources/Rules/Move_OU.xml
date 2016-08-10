@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Rule created="1469569789918" id="8a81811b56292cfa0156292f6fde0019" language="beanshell" modified="1469642451841" name="Manual_WorkItem" type="Workflow">
+<Rule created="1470264137886" id="8a81811b5652834901565292589e0006" language="beanshell" modified="1470347052518" name="Move_OU" type="Workflow">
   <Description>A rule used by a Workflow to determine a step action or variable value.
 
 Note that an Attributes map of all variables from the current WorkflowContext, merged with the arguments from the Step, is also passed into the workflow rule.</Description>
@@ -55,23 +55,25 @@ Note that an Attributes map of all variables from the current WorkflowContext, m
       </Argument>
     </Returns>
   </Signature>
-  <Source>import com.triumvir.leaver.ManualWorkItem;
+  <Source>import com.triumvir.leaver.OU;
+import com.triumvir.leaver.utils.ProvisioningExecutor;
 import sailpoint.object.Identity;
-import sailpoint.object.WorkItem;
+import sailpoint.object.Custom;
+import sailpoint.object.ProvisioningPlan;
 import sailpoint.object.Custom;
 
     Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-    String choise = simpleChoise.get("manual-work-item");
+    String choise = simpleChoise.get("move-ou");
 
     if ("yes".equals(choise))
     {
-        Identity identity = context.getObjectById(Identity.class, quickLinkIdentityId);
-        ManualWorkItem wItem = new ManualWorkItem();
-        Identity requester = context.getObjectByName(Identity.class, launcher);
-        System.out.println(launcher.getClass());
-
-       WorkItem workItem = wItem.createWorkItem(identity, context, requester);
-       context.saveObject(workItem);
-       context.commitTransaction();
+            Identity identity = context.getObjectById(Identity.class, quickLinkIdentityId);
+            Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
+            String valueOU = custom.get(identity.getName());
+            OU ouClass= new OU(identity);
+            ProvisioningPlan plan = ouClass.moveOU(valueOU);
+            System.out.println(plan.toXml());
+           ProvisioningExecutor provExecutor = new ProvisioningExecutor();
+           provExecutor.executeProvisioning(plan, context);
     }</Source>
 </Rule>

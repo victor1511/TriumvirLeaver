@@ -32,6 +32,7 @@ public class OU
 			
 			List <Link> accounts = identity.getLinks();
 			ProvisioningPlan plan = new ProvisioningPlan();
+			plan.setIdentity(identity);
 			List<AccountRequest> accReqList = new ArrayList<AccountRequest>();
 			//get the AD or LDAP account.
 			for(Link account : accounts)
@@ -56,10 +57,6 @@ public class OU
 		accRequest.setNativeIdentity(account.getNativeIdentity());
 		accRequest.setOperation(AccountRequest.Operation.Modify);
 		
-		/*AttributeRequest attRequest = new AttributeRequest();
-		attRequest.setName(attrSplited[0]);
-		attRequest.setValue(newValue);
-		attRequest.setOperation(ProvisioningPlan.Operation.Add);*/
 		accRequest.add(new AttributeRequest(attrSplited[0], ProvisioningPlan.Operation.Add, newValue));
 		accReqList.add(accRequest);
 		return accReqList;

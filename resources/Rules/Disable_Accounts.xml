@@ -57,20 +57,28 @@ Note that an Attributes map of all variables from the current WorkflowContext, m
   </Signature>
   <Source>
 import com.triumvir.leaver.Account;
+import com.triumvir.leaver.utils.ProvisioningExecutor;
 import sailpoint.object.ProvisioningPlan;
 import sailpoint.object.Identity;
 import sailpoint.object.Custom;
 import java.util.List;
-    
-  ProvisioningPlan plan = new ProvisioningPlan();
-    Account account = new Account();
+import sailpoint.object.Custom;
+
+    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
+    String choise = simpleChoise.get("disable-accounts");
+
+    if ("yes".equals(choise))
+    {
+         ProvisioningPlan plan = new ProvisioningPlan();
+     Account account = new Account();
   
     Identity identity = context.getObjectById(Identity.class, quickLinkIdentityId);
-  Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-  List exceptionList = custom.get("exception-list");
+        Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
+        List exceptionList = custom.get("exception-list");
     plan = account.getProvisioninPlan(identity, context, exceptionList);
-  
-  return plan;
-    
+      System.out.println(plan.toXml());
+        ProvisioningExecutor provExecutor = new ProvisioningExecutor();
+        provExecutor.executeProvisioning(plan, context);
+    }
   </Source>
 </Rule>

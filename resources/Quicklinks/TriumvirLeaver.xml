@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE QuickLink PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<QuickLink action="workflow" category="Access" created="1468356095256" cssClass="quicklink-request-access" id="4028f68155e05c970155e0d7ed170017" messageKey="Triumvir Standard Leaver Process" modified="1468595528759" name="Triumvir_Standard_Leaver_Process">
+<QuickLink action="workflow" category="Access" created="1468356095256" cssClass="quicklink-request-access" id="4028f68155e05c970155e0d7ed170017" messageKey="Triumvir Standard Leaver Process" modified="1470851507638" name="TriumvirLeaver2.0">
   <Attributes>
     <Map>
-      <entry key="workflowName" value="Triumvir_Standard_Leaver_Process"/>
+      <entry key="workflowName" value="TriumvirLeaver2.0"/>
     </Map>
   </Attributes>
   <Description>Launches the Immediate Termination workflow. This QuickLink is scoped to only users with the "Immediate Termination" Dynamic Scope</Description>

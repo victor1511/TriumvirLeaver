@@ -34,6 +34,7 @@ public class Email
 		}
 		
 		ProvisioningPlan plan = new ProvisioningPlan();
+		plan.setIdentity(identity);
 		if(primaryAdLink ==  null)
 		{	
 			String message = String.format("The identity %s doesn't has an AD account", identity.getName());

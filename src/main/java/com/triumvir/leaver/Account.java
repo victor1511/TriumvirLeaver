@@ -37,6 +37,7 @@ public class Account
 		
 		System.out.println("Identity " + identity +" context " + context);
 		ProvisioningPlan plan = new ProvisioningPlan();
+		plan.setIdentity(identity);
 		List <AccountRequest> accountList = new ArrayList<AccountRequest>();
 		
  		if(identity != null)
@@ -83,6 +84,7 @@ public class Account
 				accountList.add(accRequest);
 			}
 			ProvisioningPlan plan = new ProvisioningPlan();
+			plan.setIdentity(identity);
 			plan.setAccountRequests(accountList);
 			return plan;
 		}

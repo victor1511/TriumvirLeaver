@@ -56,11 +56,11 @@ Note that an Attributes map of all variables from the current WorkflowContext, m
     </Returns>
   </Signature>
   <Source>
-  import com.triumvir.leaver.Snapshot;
-    import sailpoint.object.Identity;
+import com.triumvir.leaver.Snapshot;
+import sailpoint.object.Identity;
   
     Snapshot snapshot = new Snapshot();
-  Identity identity = context.getObjectById(Identity.class, quickLinkIdentityId);
-  snapshot.createSnapshot(identity, context);
+        Identity identity = context.getObjectById(Identity.class, quickLinkIdentityId);
+        snapshot.createSnapshot(identity, context);
   </Source>
 </Rule>
