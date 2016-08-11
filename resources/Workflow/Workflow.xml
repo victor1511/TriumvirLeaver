@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE Workflow PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Workflow created="1468355703242" explicitTransitions="true" id="4028f68155e05c970155e0d1f1ca0015" modified="1470851936631" name="TriumvirLeaver2.0">
+<Workflow created="1468355703242" explicitTransitions="true" id="4028f68155e05c970155e0d1f1ca0015" modified="1470930797540" name="TriumvirLeaver2.0">
   <Variable input="true" name="launcher"/>
   <Variable input="true" name="quickLinkIdentityId"/>
   <Variable input="true" name="request"/>
@@ -30,7 +30,7 @@ return identity.getName();</Source>
 </Source>
       </Script>
     </Transition>
-    <Transition to="Generic Step">
+    <Transition to="DisableAccounts">
       <Script>
         <Source>import sailpoint.object.Custom;
 
@@ -49,7 +49,7 @@ return identity.getName();</Source>
   <Step action="rule:Manual_WorkItem" icon="Default" monitored="true" name="ManualWorkItem" posX="474" posY="86">
     <Transition to="HideEmail"/>
   </Step>
-  <Step action="rule:4028f68155eb26d00155eb2c9f5c0004" icon="Default" monitored="true" name="DisableAccounts" posX="273" posY="90">
+  <Step action="rule:4028f68155eb26d00155eb2c9f5c0004" icon="Default" monitored="true" name="DisableAccounts" posX="273" posY="86">
     <Transition to="EntitlementsPlan"/>
   </Step>
   <Step action="rule:4028f6815604a1cb015604b9ae630008" icon="Default" monitored="true" name="EntitlementsPlan" posX="370" posY="86">
@@ -68,7 +68,4 @@ return identity.getName();</Source>
     <Transition to="Stop"/>
   </Step>
   <Step icon="Stop" monitored="true" name="Stop" posX="1017" posY="86"/>
-  <Step icon="Default" monitored="true" name="Generic Step" posX="199" posY="176">
-    <Transition to="DisableAccounts"/>
-  </Step>
 </Workflow>
