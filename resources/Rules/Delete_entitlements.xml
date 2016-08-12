@@ -71,18 +71,22 @@ import sailpoint.object.Custom;
 
     if ("yes".equals(choise))
     {
-        ProvisioningPlan plan = new ProvisioningPlan();
-    EntitlementOperations entitlement = new EntitlementOperations();
+        for(String id: idsList)
+        {
+
+            ProvisioningPlan plan = new ProvisioningPlan();
+            EntitlementOperations entitlement = new EntitlementOperations();
   
-    Identity identity = context.getObjectById(Identity.class, quickLinkIdentityId);
-        Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
+            Identity identity = context.getObjectById(Identity.class, id);
+            Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
 
-        //List exceptionList = custom.get("exception-list-entitlement");
-    plan = entitlement.getDeleteEntitlementProvisioninPlan(identity, context, null);
-        System.out.println(plan.toXml());
+            //List exceptionList = custom.get("exception-list-entitlement");
+            plan = entitlement.getDeleteEntitlementProvisioninPlan(identity, context, null);
+            System.out.println(plan.toXml());
 
-       ProvisioningExecutor provExecutor = new ProvisioningExecutor();
-       provExecutor.executeProvisioning(plan, context);
+            ProvisioningExecutor provExecutor = new ProvisioningExecutor();
+            provExecutor.executeProvisioning(plan, context);
+        }
     }
   </Source>
 </Rule>

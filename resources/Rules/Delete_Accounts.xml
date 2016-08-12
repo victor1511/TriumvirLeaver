@@ -55,7 +55,8 @@ Note that an Attributes map of all variables from the current WorkflowContext, m
       </Argument>
     </Returns>
   </Signature>
-  <Source>import com.triumvir.leaver.Account;
+  <Source>
+import com.triumvir.leaver.Account;
 import com.triumvir.leaver.utils.ProvisioningExecutor;
 import sailpoint.object.Identity;
 import sailpoint.object.Custom;
@@ -66,11 +67,15 @@ import sailpoint.object.ProvisioningPlan;
 
     if ("yes".equals(choise))
     {
-        Identity identity = context.getObjectById(Identity.class, quickLinkIdentityId);
-       Account account = new Account();
-       ProvisioningPlan plan = account.deleteAccounts(identity, null);
-       System.out.println(plan.toXml());
-       ProvisioningExecutor provExecutor = new ProvisioningExecutor();
-       provExecutor.executeProvisioning(plan, context);
+        for(String id: idsList)
+        {
+            Identity identity = context.getObjectById(Identity.class, id);
+            Account account = new Account();
+            ProvisioningPlan plan = account.deleteAccounts(identity, null);
+            System.out.println(plan.toXml());
+            ProvisioningExecutor provExecutor = new ProvisioningExecutor();
+            provExecutor.executeProvisioning(plan, context);
+        }
+   
     }</Source>
 </Rule>

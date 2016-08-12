@@ -69,16 +69,20 @@ import sailpoint.object.Custom;
 
     if ("yes".equals(choise))
     {
-         ProvisioningPlan plan = new ProvisioningPlan();
-     Account account = new Account();
+        for(String id: idsList)
+        {
+
+            ProvisioningPlan plan = new ProvisioningPlan();
+            Account account = new Account();
   
-    Identity identity = context.getObjectById(Identity.class, quickLinkIdentityId);
-        Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-        List exceptionList = custom.get("exception-list");
-    plan = account.getProvisioninPlan(identity, context, exceptionList);
-      System.out.println(plan.toXml());
-        ProvisioningExecutor provExecutor = new ProvisioningExecutor();
-        provExecutor.executeProvisioning(plan, context);
-    }
+            Identity identity = context.getObjectById(Identity.class, id);
+            Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
+            List exceptionList = custom.get("exception-list");
+            plan = account.getProvisioninPlan(identity, context, exceptionList);
+            System.out.println(plan.toXml());
+            ProvisioningExecutor provExecutor = new ProvisioningExecutor();
+            provExecutor.executeProvisioning(plan, context);
+        }   
+   }
   </Source>
 </Rule>

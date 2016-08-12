@@ -55,7 +55,8 @@ Note that an Attributes map of all variables from the current WorkflowContext, m
       </Argument>
     </Returns>
   </Signature>
-  <Source>import com.triumvir.leaver.ManualWorkItem;
+  <Source>
+import com.triumvir.leaver.ManualWorkItem;
 import sailpoint.object.Identity;
 import sailpoint.object.WorkItem;
 import sailpoint.object.Custom;
@@ -65,13 +66,17 @@ import sailpoint.object.Custom;
 
     if ("yes".equals(choise))
     {
-        Identity identity = context.getObjectById(Identity.class, quickLinkIdentityId);
-        ManualWorkItem wItem = new ManualWorkItem();
-        Identity requester = context.getObjectByName(Identity.class, launcher);
-        System.out.println(launcher.getClass());
+        for(String id: idsList)
+        {
+            Identity identity = context.getObjectById(Identity.class, id);
+            ManualWorkItem wItem = new ManualWorkItem();
+            Identity requester = context.getObjectByName(Identity.class, launcher);
+            System.out.println(launcher.getClass());
 
-       WorkItem workItem = wItem.createWorkItem(identity, context, requester);
-       context.saveObject(workItem);
-       context.commitTransaction();
+            WorkItem workItem = wItem.createWorkItem(identity, context, requester);
+            context.saveObject(workItem);
+            context.commitTransaction();
+        }
+       
     }</Source>
 </Rule>
