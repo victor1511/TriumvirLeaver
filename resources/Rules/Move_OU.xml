@@ -72,12 +72,13 @@ import sailpoint.object.Custom;
         {
             Identity identity = context.getObjectById(Identity.class, id);
             Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-            String valueOU = custom.get(identity.getName());
+            String valueOU = custom.get("new-ou");
             OU ouClass= new OU(identity);
             ProvisioningPlan plan = ouClass.moveOU(valueOU);
             System.out.println(plan.toXml());
             ProvisioningExecutor provExecutor = new ProvisioningExecutor();
             provExecutor.executeProvisioning(plan, context);
-        }    
+        }
+           
     }</Source>
 </Rule>
