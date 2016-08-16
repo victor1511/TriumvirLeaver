@@ -61,19 +61,23 @@ public class ManualWorkItem {
 		return applicationList;
 	}
 	
-	public WorkItem createWorkItem(Identity identity, SailPointContext context, Identity launcher) throws GeneralException 
+	public WorkItem createWorkItem(Identity identity, Identity owner, SailPointContext context, Identity launcher) throws GeneralException 
 	{
+		if(owner == null)
+		{
+			owner = identity.getManager();
+		}
 		
 		WorkItem  workItem = new WorkItem();
 		Sequencer sequencer = new Sequencer(); // Get the request number for the WorkItem.
-		
+		context = context.getContext();		
 		workItem.setType(WorkItem.Type.ManualAction);
 		workItem.setName(sequencer.generateId(context.getContext(), workItem));
 		workItem.setTarget(identity);
 		workItem.setTargetClass(Identity.class.getName());
 		workItem.setRequester(launcher);
 		workItem.setLevel(Level.High);
-		workItem.setOwner(identity.getManager());
+		workItem.setOwner(owner);
 		workItem.setTargetClass(sailpoint.object.Identity.class);
 		workItem.setHandler(sailpoint.api.Workflower.class);
 		workItem.setRenderer("lcmManualActionsRenderer.xhtml");

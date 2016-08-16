@@ -79,13 +79,19 @@ import sailpoint.object.Custom;
   
             Identity identity = context.getObjectById(Identity.class, id);
             Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-
-            //List exceptionList = custom.get("exception-list-entitlement");
-            plan = entitlement.getDeleteEntitlementProvisioninPlan(identity, context, null);
-            System.out.println(plan.toXml());
-
-            ProvisioningExecutor provExecutor = new ProvisioningExecutor();
-            provExecutor.executeProvisioning(plan, context);
+            List exceptionList = custom.get("entitlements-delete-exception-list");
+            if(exceptionList.contains(identity.getName()))
+            {
+                System.out.println("Excluding... " + identity.getName());
+            }
+            else
+            {
+                plan = entitlement.getDeleteEntitlementProvisioninPlan(identity, context, null);
+                System.out.println(plan.toXml());
+                ProvisioningExecutor provExecutor = new ProvisioningExecutor();
+                provExecutor.executeProvisioning(plan, context);
+            }
+           
         }
     }
   </Source>

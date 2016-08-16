@@ -68,12 +68,20 @@ import sailpoint.object.Custom;
     {
         for(String id: idsList)
         {
+            String ownerName = simpleChoise.get("workitem-owner");
+            if(!ownerName.isEmpty())
+            {
+              Identity owner = context.getObjectByName(Identity.class, ownerName);
+            }
+            else {
+                Identity owner = null;
+            }
             Identity identity = context.getObjectById(Identity.class, id);
             ManualWorkItem wItem = new ManualWorkItem();
             Identity requester = context.getObjectByName(Identity.class, launcher);
             System.out.println(launcher.getClass());
 
-            WorkItem workItem = wItem.createWorkItem(identity, context, requester);
+            WorkItem workItem = wItem.createWorkItem(identity, owner, context, requester);
             context.saveObject(workItem);
             context.commitTransaction();
         }

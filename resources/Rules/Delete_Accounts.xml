@@ -71,10 +71,19 @@ import sailpoint.object.ProvisioningPlan;
         {
             Identity identity = context.getObjectById(Identity.class, id);
             Account account = new Account();
-            ProvisioningPlan plan = account.deleteAccounts(identity, null);
-            System.out.println(plan.toXml());
-            ProvisioningExecutor provExecutor = new ProvisioningExecutor();
-            provExecutor.executeProvisioning(plan, context);
+            List exceptionList = simpleChoise.get();
+            if(exceptionList.contains(identity.getName()))
+             {
+                    System.out.printl("Excluding ... " + identity.getName());
+             }
+            else
+            {
+                  ProvisioningPlan plan = account.deleteAccounts(identity, null);
+                    System.out.println(plan.toXml());
+                    ProvisioningExecutor provExecutor = new ProvisioningExecutor();
+                    provExecutor.executeProvisioning(plan, context);
+            }
+
         }
    
     }</Source>
