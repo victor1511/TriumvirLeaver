@@ -64,8 +64,9 @@ import sailpoint.object.ProvisioningPlan;
 
     Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
     String choise = simpleChoise.get("delete-accounts");
+    String disableAccounts = simpleChoise.get("disable-accounts");
 
-    if ("yes".equals(choise))
+    if ("yes".equals(choise) && "no".equals(disableAccounts))
     {
         for(String id: idsList)
         {
