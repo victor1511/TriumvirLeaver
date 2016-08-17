@@ -78,7 +78,7 @@ import sailpoint.object.Custom;
   
             Identity identity = context.getObjectById(Identity.class, id);
             Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-            List exceptionList = custom.get("acount-disable-exception-list");
+            List exceptionList = custom.get("disable-accounts-exception-list");
             if(exceptionList.contains(identity.getName())){
                 System.out.println("Excluding ... " + identity.getName());
             }

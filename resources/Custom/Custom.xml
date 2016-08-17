@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE Custom PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Custom created="1468513239090" id="8a81811b55ea08050155ea35c032001a" modified="1471444192346" name="Triumvir-standard-leaver">
+<Custom created="1468513239090" id="8a81811b55ea08050155ea35c032001a" modified="1471447216569" name="Triumvir-standard-leaver">
   <Attributes>
     <Map>
-      <entry key="acount-disable-exception-list">
+      <entry key="disable-accounts-exception-list">
         <value>
           <List>
             <String>null</String>
@@ -47,6 +47,13 @@
         </value>
       </entry>
       <entry key="reset-password" value="no"/>
+      <entry key="reset-password-exception-list">
+        <value>
+          <List>
+            <String>null</String>
+          </List>
+        </value>
+      </entry>
       <entry key="workitem-owner" value="Walter.Henderson"/>
     </Map>
   </Attributes>
