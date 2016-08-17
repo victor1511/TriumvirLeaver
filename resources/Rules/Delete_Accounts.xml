@@ -67,7 +67,7 @@ import java.util.Map;
     String choise = simpleChoise.get("delete-accounts");
     String disableAccounts = simpleChoise.get("disable-accounts");
 
-    if ("yes".equals(choise) && "no".equals(disableAccounts))
+    if ("yes".equals(choise) &amp;&amp; "no".equals(disableAccounts))
     {
         for(String id: idsList)
         {
