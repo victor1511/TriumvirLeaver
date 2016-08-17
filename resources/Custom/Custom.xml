@@ -1,9 +1,15 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE Custom PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Custom created="1468513239090" id="8a81811b55ea08050155ea35c032001a" modified="1470676680709" name="Triumvir-standard-leaver">
+<Custom created="1468513239090" id="8a81811b55ea08050155ea35c032001a" modified="1471444192346" name="Triumvir-standard-leaver">
   <Attributes>
     <Map>
-      <entry key="Alan.Bradley" value="groups,Contractors"/>
+      <entry key="acount-disable-exception-list">
+        <value>
+          <List>
+            <String>null</String>
+          </List>
+        </value>
+      </entry>
       <entry key="change_password">
         <value>
           <Map>
@@ -12,19 +18,27 @@
         </value>
       </entry>
       <entry key="create-snapshot" value="no"/>
-      <entry key="delete-accounts" value="yes"/>
-      <entry key="delete-entitlement" value="no"/>
-      <entry key="disable-accounts" value="no"/>
-      <entry key="exception-list">
+      <entry key="delete-accounts" value="no"/>
+      <entry key="delete-accounts-exception-list">
         <value>
           <List>
-            <String>HR System - Employees</String>
+            <String>null</String>
+          </List>
+        </value>
+      </entry>
+      <entry key="delete-entitlement" value="no"/>
+      <entry key="disable-accounts" value="yes"/>
+      <entry key="entitlements-delete-exception-list">
+        <value>
+          <List>
+            <String>null</String>
           </List>
         </value>
       </entry>
       <entry key="hide-email" value="no"/>
       <entry key="manual-work-item" value="no"/>
       <entry key="move-ou" value="no"/>
+      <entry key="new-ou" value="groups,Contractors"/>
       <entry key="password-map">
         <value>
           <Map>
@@ -32,6 +46,8 @@
           </Map>
         </value>
       </entry>
+      <entry key="reset-password" value="no"/>
+      <entry key="workitem-owner" value="Walter.Henderson"/>
     </Map>
   </Attributes>
 </Custom>
