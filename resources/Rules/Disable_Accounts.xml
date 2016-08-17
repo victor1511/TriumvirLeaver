@@ -64,17 +64,18 @@ import sailpoint.object.Identity;
 import sailpoint.object.Custom;
 import java.util.List;
 import java.util.ArrayList;
-import sailpoint.object.Custom;
+import java.util.Map;
+
   
-    Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-    String choise = custom.get("disable-accounts");
+    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
+    String choise = simpleChoise.get("disable-accounts");
     if ("yes".equals(choise))
     {
-        String deleteAccounts = custom.get("delete-accounts");
+        String deleteAccounts = simpleChoise.get("delete-accounts");
         if("yes".equals(deleteAccounts))
-        {
-            custom.put("delete-accounts", "no");
-        }
+         {
+             simpleChoise.put("delete-accounts", "no");
+         }
         for(String id: idsList)
         {
 
@@ -82,12 +83,18 @@ import sailpoint.object.Custom;
             Account account = new Account();
   
             Identity identity = context.getObjectById(Identity.class, id);
-            List exceptionList = custom.get("disable-accounts-exception-list");
-            if(exceptionList.contains(identity.getName())){
+            Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
+            
+            Map exceptionList = custom.get("exception-list");
+            List disableListException = exceptionList.get("disable-accounts");
+            
+            if(disableListException.contains(identity.getName()))
+            {
                 System.out.println("Excluding ... " + identity.getName());
             }
-            else{
-                plan = account.getProvisioninPlan(identity, context, exceptionList);
+            else
+            {
+                plan = account.getProvisioninPlan(identity, context, disableListException);
                 System.out.println(plan.toXml());
                 ProvisioningExecutor provExecutor = new ProvisioningExecutor();
                 provExecutor.executeProvisioning(plan, context);

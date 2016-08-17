@@ -61,6 +61,7 @@ import com.triumvir.leaver.utils.ProvisioningExecutor;
 import sailpoint.object.Identity;
 import sailpoint.object.Custom;
 import sailpoint.object.ProvisioningPlan;
+import java.util.Map;
 
     Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
     String choise = simpleChoise.get("delete-accounts");
@@ -72,11 +73,11 @@ import sailpoint.object.ProvisioningPlan;
         {
             Identity identity = context.getObjectById(Identity.class, id);
             Account account = new Account();
-            List exceptionList = simpleChoise.get();
-            if(exceptionList.contains(identity.getName()))
-             {
+               Map exceptionList = custom.get("exception-list");
+            List deleteListException = exceptionList.get("delete-accounts");
+            if(deleteListException.contains(identity.getName())) {
                     System.out.printl("Excluding ... " + identity.getName());
-             }
+                 }
             else
             {
                   ProvisioningPlan plan = account.deleteAccounts(identity, null);

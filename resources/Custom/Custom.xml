@@ -1,15 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE Custom PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Custom created="1468513239090" id="8a81811b55ea08050155ea35c032001a" modified="1471447216569" name="Triumvir-standard-leaver">
+<Custom created="1468513239090" id="8a81811b55ea08050155ea35c032001a" modified="1471465634049" name="Triumvir-standard-leaver">
   <Attributes>
     <Map>
-      <entry key="disable-accounts-exception-list">
-        <value>
-          <List>
-            <String>null</String>
-          </List>
-        </value>
-      </entry>
       <entry key="change_password">
         <value>
           <Map>
@@ -19,20 +12,40 @@
       </entry>
       <entry key="create-snapshot" value="no"/>
       <entry key="delete-accounts" value="no"/>
-      <entry key="delete-accounts-exception-list">
-        <value>
-          <List>
-            <String>null</String>
-          </List>
-        </value>
-      </entry>
       <entry key="delete-entitlement" value="no"/>
       <entry key="disable-accounts" value="yes"/>
-      <entry key="entitlements-delete-exception-list">
+      <entry key="exception-list">
         <value>
-          <List>
-            <String>null</String>
-          </List>
+          <Map>
+            <entry key="delete-accounts">
+              <value>
+                <List>
+                  <String>null</String>
+                </List>
+              </value>
+            </entry>
+            <entry key="disable-accounts">
+              <value>
+                <List>
+                  <String>null</String>
+                </List>
+              </value>
+            </entry>
+            <entry key="entitlements-delete">
+              <value>
+                <List>
+                  <String>null</String>
+                </List>
+              </value>
+            </entry>
+            <entry key="reset-password">
+              <value>
+                <List>
+                  <String>null</String>
+                </List>
+              </value>
+            </entry>
+          </Map>
         </value>
       </entry>
       <entry key="hide-email" value="no"/>
@@ -47,13 +60,6 @@
         </value>
       </entry>
       <entry key="reset-password" value="no"/>
-      <entry key="reset-password-exception-list">
-        <value>
-          <List>
-            <String>null</String>
-          </List>
-        </value>
-      </entry>
       <entry key="workitem-owner" value="Walter.Henderson"/>
     </Map>
   </Attributes>
