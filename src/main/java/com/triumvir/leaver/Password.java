@@ -25,11 +25,19 @@ public class Password
 		this.identity = identity;
 	}
 		
+	public Identity getIdentity() 
+	{
+		return identity;
+	}
+
 	public ProvisioningPlan changePassword(Map<String, String> accountsToChangePass) throws GeneralException
 	{ 
+		if(accountsToChangePass.containsKey("Identity"))
+		{
+			changeIdentityPassword(accountsToChangePass);
+		}
+		
 		List <Link> accounts =  identity.getLinks();
-		ProvisioningPlan plan = new ProvisioningPlan();
-		plan.setIdentity(identity);
 		if(accounts.isEmpty())
 		{
 			throw new RuntimeException(String.format("The Identity %s does not have applications", identity.getName()));
@@ -43,16 +51,18 @@ public class Password
 				provisioning(key, values);
 			}		
 		}
+		
+		ProvisioningPlan plan = new ProvisioningPlan();
+		plan.setIdentity(identity);
 		plan.setAccountRequests(accountsRequestList);
 		System.out.println(plan.toXml());
 		return plan;
 	}
 	
-	public Identity changeIdentityPassword(Map<String, String> accountsToChangePass)
+	private void changeIdentityPassword(Map<String, String> accountsToChangePass)
 	{	
 		String newPassword = accountsToChangePass.remove("Identity");
 		identity.setPassword(newPassword);
-		return identity;
 	}
 	
 	private void provisioning(String appName, String [] values) throws GeneralException
@@ -61,7 +71,7 @@ public class Password
 		AttributeRequest atRequest = new AttributeRequest();	
 		String nativeIdentity = "";
 		List <Link> accounts = identity.getLinks();
-	
+		
 		for(Link account : accounts)
 		{
 			if(account.getApplicationName().equals(appName))
