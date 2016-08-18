@@ -29,7 +29,7 @@ public class Password
 	{ 
 		List <Link> accounts =  identity.getLinks();
 		ProvisioningPlan plan = new ProvisioningPlan();
-		
+		plan.setIdentity(identity);
 		if(accounts.isEmpty())
 		{
 			throw new RuntimeException(String.format("The Identity %s does not have applications", identity.getName()));
@@ -74,7 +74,7 @@ public class Password
 		acRequest.setNativeIdentity(nativeIdentity);
 		acRequest.setOperation(AccountRequest.Operation.Modify);
 		
-		atRequest.setName(values[2]);
+		atRequest.setName(values[0]);
 		atRequest.setValue(values[1]);
 		atRequest.setOperation(ProvisioningPlan.Operation.Set);
 		acRequest.add(atRequest);
