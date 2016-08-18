@@ -38,8 +38,9 @@ public class Password
 		for(String key : accountsToChangePass.keySet())
 		{
 			if(key != null)
-			{
-				provisioning(key, accountsToChangePass.get(key));
+			{	
+				String [] values = accountsToChangePass.get(key).split(","); 
+				provisioning(key, values);
 			}		
 		}
 		plan.setAccountRequests(accountsRequestList);
@@ -54,7 +55,7 @@ public class Password
 		return identity;
 	}
 	
-	private void provisioning(String appName, Object appValue) throws GeneralException
+	private void provisioning(String appName, String [] values) throws GeneralException
 	{
 		AccountRequest acRequest = new AccountRequest();
 		AttributeRequest atRequest = new AttributeRequest();	
@@ -73,8 +74,8 @@ public class Password
 		acRequest.setNativeIdentity(nativeIdentity);
 		acRequest.setOperation(AccountRequest.Operation.Modify);
 		
-		atRequest.setName("password");
-		atRequest.setValue(appValue);
+		atRequest.setName(values[2]);
+		atRequest.setValue(values[1]);
 		atRequest.setOperation(ProvisioningPlan.Operation.Set);
 		acRequest.add(atRequest);
 		

@@ -68,13 +68,11 @@ import sailpoint.object.Custom;
     {
         for(String id: idsList)
         {
+            Identity owner = null;
             String ownerName = simpleChoise.get("workitem-owner");
             if(!ownerName.isEmpty())
             {
-              Identity owner = context.getObjectByName(Identity.class, ownerName);
-            }
-            else {
-                Identity owner = null;
+                owner = context.getObjectByName(Identity.class, ownerName);
             }
             Identity identity = context.getObjectById(Identity.class, id);
             ManualWorkItem wItem = new ManualWorkItem();
