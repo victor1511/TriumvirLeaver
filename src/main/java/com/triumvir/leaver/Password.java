@@ -45,7 +45,7 @@ public class Password
 		
 		for(String key : accountsToChangePass.keySet())
 		{
-			if(key != null)
+			if(key != null && !key.equals("Identity"))
 			{	
 				String [] values = accountsToChangePass.get(key).split(","); 
 				provisioning(key, values);
@@ -61,7 +61,7 @@ public class Password
 	
 	private void changeIdentityPassword(Map<String, String> accountsToChangePass)
 	{	
-		String newPassword = accountsToChangePass.remove("Identity");
+		String newPassword = accountsToChangePass.get("Identity");
 		identity.setPassword(newPassword);
 	}
 	

@@ -82,9 +82,8 @@ import java.util.List;
             else
             {
                   ProvisioningPlan plan = account.deleteAccounts(identity, null);
-                    System.out.println(plan.toXml());
-                    ProvisioningExecutor provExecutor = new ProvisioningExecutor();
-                    provExecutor.executeProvisioning(plan, context);
+                  System.out.println(plan.toXml());
+                  ProvisioningExecutor.getInstance().executeProvisioning(plan, context);
             }
 
         }

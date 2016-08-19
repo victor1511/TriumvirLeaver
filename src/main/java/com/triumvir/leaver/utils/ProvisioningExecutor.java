@@ -8,6 +8,20 @@ import sailpoint.object.ProvisioningProject;
 import sailpoint.tools.GeneralException;
 
 public class ProvisioningExecutor {
+	private static ProvisioningExecutor instance = null;
+	
+	public ProvisioningExecutor()
+	{
+		System.out.println("Esto debería ser desplegado solo una vez.");
+	}
+	public static ProvisioningExecutor getInstance()
+	{
+		if(instance == null)
+		{
+			instance = new ProvisioningExecutor();
+		}
+		return instance;
+	}
 	public void executeProvisioning(ProvisioningPlan plan, SailPointContext context) throws GeneralException
 	{
 		context = context.getContext();

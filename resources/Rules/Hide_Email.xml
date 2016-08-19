@@ -73,8 +73,7 @@ import sailpoint.object.Custom;
             Email email = new Email(identity);
             ProvisioningPlan plan = email.hideEmail();
             System.out.println(plan.toXml());
-            ProvioningExecutor provExecutor = new ProvisioningExecutor();
-            provExecutor.executeProvisioning(plan, context);
+            ProvisioningExecutor.getInstance().executeProvisioning(plan, context);
         }
      
     }</Source>

@@ -76,8 +76,7 @@ import sailpoint.object.Custom;
             OU ouClass= new OU(identity);
             ProvisioningPlan plan = ouClass.moveOU(valueOU);
             System.out.println(plan.toXml());
-            ProvisioningExecutor provExecutor = new ProvisioningExecutor();
-            provExecutor.executeProvisioning(plan, context);
+            ProvisioningExecutor.getInstance().executeProvisioning(plan, context);
         }
            
     }</Source>

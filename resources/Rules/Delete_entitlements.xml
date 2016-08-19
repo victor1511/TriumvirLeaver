@@ -89,8 +89,7 @@ import java.util.Map;
             {
                 plan = entitlement.getDeleteEntitlementProvisioninPlan(identity, context, null);
                 System.out.println(plan.toXml());
-                ProvisioningExecutor provExecutor = new ProvisioningExecutor();
-                provExecutor.executeProvisioning(plan, context);
+                ProvisioningExecutor.getInstance().executeProvisioning(plan, context);
             }  
         }
     }
