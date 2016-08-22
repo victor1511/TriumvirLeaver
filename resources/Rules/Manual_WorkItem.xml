@@ -81,7 +81,7 @@ import sailpoint.object.Custom;
             System.out.println(launcher.getClass());
 
             WorkItem workItem = wItem.createWorkItem(identity, owner, context, requester);
-            ObjectSaver.saveManualWorkItem(context, workItem);
+            ObjectSaver.getInstance().saveManualWorkItem(context, workItem);
         }
        
     }</Source>
