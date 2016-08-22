@@ -57,6 +57,7 @@ Note that an Attributes map of all variables from the current WorkflowContext, m
   </Signature>
   <Source>
 import com.triumvir.leaver.ManualWorkItem;
+import com.triumvir.leaver.utils.ObjectSaver;
 import sailpoint.object.Identity;
 import sailpoint.object.WorkItem;
 import sailpoint.object.Custom;
@@ -80,8 +81,7 @@ import sailpoint.object.Custom;
             System.out.println(launcher.getClass());
 
             WorkItem workItem = wItem.createWorkItem(identity, owner, context, requester);
-            context.saveObject(workItem);
-            context.commitTransaction();
+            ObjectSaver.saveManualWorkItem(context, workItem);
         }
        
     }</Source>
