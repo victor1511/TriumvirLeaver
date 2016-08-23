@@ -7,12 +7,15 @@ import sailpoint.object.ProvisioningPlan;
 import sailpoint.object.ProvisioningProject;
 import sailpoint.tools.GeneralException;
 
-public class ProvisioningExecutor {
+public class ProvisioningExecutor 
+{
 	private static ProvisioningExecutor instance = null;
+	private ProvisioningProject project = null;
+	private Attributes<String, Object> arguments;
 	
-	public ProvisioningExecutor()
+	private ProvisioningExecutor()
 	{
-		System.out.println("Esto debería ser desplegado solo una vez.");
+		arguments = new Attributes<String, Object>();
 	}
 	public static ProvisioningExecutor getInstance()
 	{
@@ -25,10 +28,9 @@ public class ProvisioningExecutor {
 	public void executeProvisioning(ProvisioningPlan plan, SailPointContext context) throws GeneralException
 	{
 		context = context.getContext();
-		Attributes<String, Object> arguments = new Attributes<String, Object>();
 		arguments.put("optimisticProvisioning", true);
 		Provisioner provisioner = new Provisioner(context);
-		ProvisioningProject project = provisioner.compile(plan, arguments);
+		project = provisioner.compile(plan, arguments);
 		provisioner.execute(project);
 	}
 }
