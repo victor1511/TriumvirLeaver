@@ -37,13 +37,28 @@ public class OU
 			//get the AD or LDAP account.
 			for(Link account : accounts)
 			{
-				if("Active Directory - Direct".equals(account.getApplication().getType()))
+				// switch because maybe we need a different configuration for each app.
+				switch(account.getApplication().getType())
 				{
-					plan.setAccountRequests(setNewAttribute(account, accReqList));
-				} else if("OpenLDAP - Direct".equals(account.getApplication().getType()))
-				{
-					plan.setAccountRequests(setNewAttribute(account, accReqList));
-				}	
+					case "OpenLDAP - Direct":
+						plan.setAccountRequests(setNewAttribute(account, accReqList));
+						break;
+					case "IBM Tivoli DS - Direct":
+						plan.setAccountRequests(setNewAttribute(account, accReqList));
+						break;
+					case "Novell eDirectory - Direct":
+						plan.setAccountRequests(setNewAttribute(account, accReqList));
+						break;
+					case "LDAP":
+						plan.setAccountRequests(setNewAttribute(account, accReqList));
+						break;
+					case "ADAM - Direct":
+						plan.setAccountRequests(setNewAttribute(account, accReqList));
+						break;
+					case "Oracle Internet Directory - Direct":
+						plan.setAccountRequests(setNewAttribute(account, accReqList));
+						break;
+				}
 			}
 			return plan;
 		}
@@ -57,7 +72,7 @@ public class OU
 		accRequest.setNativeIdentity(account.getNativeIdentity());
 		accRequest.setOperation(AccountRequest.Operation.Modify);
 		
-		accRequest.add(new AttributeRequest(attrSplited[0], ProvisioningPlan.Operation.Add, newValue));
+		accRequest.add(new AttributeRequest(attrSplited[0], ProvisioningPlan.Operation.Set, newValue));
 		accReqList.add(accRequest);
 		return accReqList;
 	}
