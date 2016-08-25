@@ -76,11 +76,13 @@ import sailpoint.object.Custom;
             OU ouClass= new OU(identity);
             EntitlementOperations entOp = new EntitlementOperations();
             ProvisioningPlan plan = entOp.getLdapEntitlements(identity);
-            ProvisioningExecutor.executeProvisioning(plan, context);
+            System.out.println("To delete entitlements"+plan.toXml());
+            if(plan != null)
+                ProvisioningExecutor.getInstance().executeProvisioning(plan, context);
             
             plan = ouClass.moveOU(valueOU);
-            System.out.println(plan.toXml());
-            ProvisioningExecutor.executeProvisioning(plan, context);
+            System.out.println("Changes group"+plan.toXml());
+            ProvisioningExecutor.getInstance().executeProvisioning(plan, context);
         }
            
     }</Source>

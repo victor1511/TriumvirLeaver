@@ -19,64 +19,57 @@ public class OU
 		this.identity = identity;
 	}
 	
-	public ProvisioningPlan moveOU(String attributeValue)
+	public ProvisioningPlan moveOU(String newValue)
 	{
-		
-		if(attributeValue == null)
-		{
-			throw new RuntimeException(String.format("The attribute for the identity %s is null", identity.getName()));
-		}
-		else
-		{
-			attrSplited = attributeValue.split(",");
+		String[] valuesNewOu = newValue.split(":");
+		attrSplited = newValue.split(",");
 			
-			List <Link> accounts = identity.getLinks();
-			ProvisioningPlan plan = new ProvisioningPlan();
-			plan.setIdentity(identity);
-			List<AccountRequest> accReqList = new ArrayList<AccountRequest>();
-			//get the AD or LDAP account.
-			for(Link account : accounts)
+		List <Link> accounts = identity.getLinks();
+		ProvisioningPlan plan = new ProvisioningPlan();
+		plan.setIdentity(identity);
+		List<AccountRequest> accReqList = new ArrayList<AccountRequest>();
+		//get the AD or LDAP account.
+		for(Link account : accounts)
+		{
+			// switch because maybe we need a different configuration for each app.
+			switch(account.getApplication().getType())
 			{
-				// switch because maybe we need a different configuration for each app.
-				switch(account.getApplication().getType())
-				{
-					case "OpenLDAP - Direct":
-						plan.setAccountRequests(setNewAttribute(account, accReqList));
+				case "OpenLDAP - Direct":
+					plan.setAccountRequests(setNewAttribute(account, valuesNewOu[0], valuesNewOu[1], accReqList));
+					break;
+				case "IBM Tivoli DS - Direct":
+					plan.setAccountRequests(setNewAttribute(account, valuesNewOu[0], valuesNewOu[1], accReqList));
+					break;
+				case "Novell eDirectory - Direct":
+					plan.setAccountRequests(setNewAttribute(account, valuesNewOu[0], valuesNewOu[1], accReqList));
+					break;
+				case "LDAP":
+					plan.setAccountRequests(setNewAttribute(account, valuesNewOu[0],  valuesNewOu[1], accReqList));
 						break;
-					case "IBM Tivoli DS - Direct":
-						plan.setAccountRequests(setNewAttribute(account, accReqList));
-						break;
-					case "Novell eDirectory - Direct":
-						plan.setAccountRequests(setNewAttribute(account, accReqList));
-						break;
-					case "LDAP":
-						plan.setAccountRequests(setNewAttribute(account, accReqList));
-						break;
-					case "ADAM - Direct":
-						plan.setAccountRequests(setNewAttribute(account, accReqList));
-						break;
-					case "Oracle Internet Directory - Direct":
-						plan.setAccountRequests(setNewAttribute(account, accReqList));
-						break;
+				case "ADAM - Direct":
+					plan.setAccountRequests(setNewAttribute(account, valuesNewOu[0],  valuesNewOu[1], accReqList));
+					break;
+				case "Oracle Internet Directory - Direct":
+					plan.setAccountRequests(setNewAttribute(account, valuesNewOu[0],  valuesNewOu[1], accReqList));
+					break;
 				}
 			}
-			return plan;
-		}
+		return plan;	
 	}
 	
-	private List<AccountRequest> setNewAttribute(Link account, List<AccountRequest>accReqList)
+	private List<AccountRequest> setNewAttribute(Link account,String attName, String newValue, List<AccountRequest>accReqList)
 	{	
-		String newValue = nativeIdentityString(account.getNativeIdentity());
+		
 		AccountRequest accRequest = new AccountRequest();
 		accRequest.setApplication(account.getApplicationName());
 		accRequest.setNativeIdentity(account.getNativeIdentity());
 		accRequest.setOperation(AccountRequest.Operation.Modify);
 		
-		accRequest.add(new AttributeRequest(attrSplited[0], ProvisioningPlan.Operation.Set, newValue));
+		accRequest.add(new AttributeRequest(attName, ProvisioningPlan.Operation.Add, newValue));
 		accReqList.add(accRequest);
 		return accReqList;
 	}
-	
+/*	
 	private String nativeIdentityString(String nativeIdentity)
 	{
 		String [] stringSplited = nativeIdentity.split(",");
@@ -101,5 +94,5 @@ public class OU
 			
 		}
 		return resultNativeIdentity.toString();
-	}
+	}*/
 }

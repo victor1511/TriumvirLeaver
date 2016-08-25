@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE Custom PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Custom created="1468513239090" id="8a81811b55ea08050155ea35c032001a" modified="1471465634049" name="Triumvir-standard-leaver">
+<Custom created="1468513239090" id="8a81811b55ea08050155ea35c032001a" modified="1472160248543" name="Triumvir-standard-leaver">
   <Attributes>
     <Map>
       <entry key="change_password">
@@ -13,7 +13,7 @@
       <entry key="create-snapshot" value="no"/>
       <entry key="delete-accounts" value="no"/>
       <entry key="delete-entitlement" value="no"/>
-      <entry key="disable-accounts" value="yes"/>
+      <entry key="disable-accounts" value="no"/>
       <entry key="exception-list">
         <value>
           <Map>
@@ -50,12 +50,12 @@
       </entry>
       <entry key="hide-email" value="no"/>
       <entry key="manual-work-item" value="no"/>
-      <entry key="move-ou" value="no"/>
-      <entry key="new-ou" value="groups,Contractors"/>
+      <entry key="move-ou" value="yes"/>
+      <entry key="new-ou" value="groups:cn=leavers,ou=groups,dc=training,dc=sailpoint,dc=com"/>
       <entry key="password-map">
         <value>
           <Map>
-            <entry key="Financials" value="abc"/>
+            <entry key="LDAP" value="userPassword,abc123"/>
           </Map>
         </value>
       </entry>
