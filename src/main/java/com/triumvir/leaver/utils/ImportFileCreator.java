@@ -5,19 +5,26 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import org.apache.commons.lang.StringUtils;
 
 public class ImportFileCreator {
 
+	private static String XML_HEADER = "<?xml version='1.0' encoding='UTF-8'?>";
+	private static String DOC_TYPE_P1 = "<!DOCTYPE ";
+	private static String DOC_TYPE_P2 = " PUBLIC \"sailpoint.dtd\" \"sailpoint.dtd\">";
+	
+	private static String newLineWin = "\r\n";
+	private static String newLineLin = "\n";
+	
+	private static String xmlRootPath = "./resources/";
+	private static String resultPath = "./resources/ImportFile/";
+	private static String resultFileName = "ImportFile.xml";
+	
 	public static void main(String[] args) 
 	{
 		try 
 		{
-			String xmlRootPath = "./resources/";
-			String resultPath = "./resources/ImportFile/";
-			String resultFileName = "ImportFile.xml";
-			String xmlHeader = "<?xml version='1.0' encoding='UTF-8'?>\n<!DOCTYPE sailpoint PUBLIC \"sailpoint.dtd\" \"sailpoint.dtd\">\n";
+
 
 			System.out.println("Creating the result folder if not exists!");
 			if(!Files.exists(Paths.get(resultPath)))
@@ -32,28 +39,14 @@ public class ImportFileCreator {
 
 			System.out.println("Creating the xml import file...");
 			PrintWriter writer = new PrintWriter(resultPath + resultFileName, "UTF-8");
-			writer.write(xmlHeader + "<sailpoint>");
+			writer.write(CreateFileHeader("sailpoint", newLineLin) + "<sailpoint>" + newLineLin);
 
-			//Regex to remove the xml header in each file...
-			String pattern1 = "<?xml version='1.0' encoding='UTF-8'?>" + System.getProperty("line.separator") + "<!DOCTYPE ";
-			String pattern2 = " PUBLIC \"sailpoint.dtd\" \"sailpoint.dtd\">";
-			Pattern p = Pattern.compile(Pattern.quote(pattern1) + "(.*?)" + Pattern.quote(pattern2));
-			Matcher m = null;
-			String stringToRemove = pattern1;
-			
 			System.out.println("Reading XMLs");
 			for(File file : xmlsPathList){
 				if(!file.getName().equals(resultFileName))
 				{
 					String content = new String(Files.readAllBytes(file.toPath()));
-					m = p.matcher(content);
-					while(m.find()){
-						stringToRemove += m.group(1);
-					}
-					stringToRemove += pattern2;
-					content = content.replace(stringToRemove, "");
-					writer.write(content);
-					stringToRemove = pattern1;
+					writer.write(removeXMLHeader(content));
 				}
 			}
 
@@ -64,6 +57,27 @@ public class ImportFileCreator {
 		catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	private static String removeXMLHeader(String content){
+		String stringToRemove = "";
+		String docTypeWin = newLineWin + DOC_TYPE_P1;
+		String docTypeLin = newLineLin + DOC_TYPE_P1;
+		
+		String objectType = StringUtils.substringBetween(content, XML_HEADER + docTypeWin, DOC_TYPE_P2);
+		if(objectType == null){
+			objectType = StringUtils.substringBetween(content, XML_HEADER + docTypeLin, DOC_TYPE_P2);
+			stringToRemove = CreateFileHeader(objectType, newLineLin);
+		}
+		else
+			stringToRemove = CreateFileHeader(objectType, newLineWin);
+		
+		content = content.replace(stringToRemove, "");
+		return content;
+	}
+
+	private static String CreateFileHeader(String objectType, String lineSeparator){
+		return XML_HEADER + lineSeparator + DOC_TYPE_P1 + objectType + DOC_TYPE_P2 + lineSeparator;
 	}
 
 	private static File[] getFilePath(String directoryName, ArrayList<File> files) {
@@ -79,6 +93,4 @@ public class ImportFileCreator {
 		}
 		return fList;
 	}
-
-
 }

@@ -1,884 +1,1067 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE sailpoint PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<sailpoint><?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE Custom PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Custom created="1468513239090" id="8a81811b55ea08050155ea35c032001a" modified="1471465634049" name="Triumvir-standard-leaver">
-  <Attributes>
-    <Map>
-      <entry key="change_password">
-        <value>
-          <Map>
-            <entry key="new_password" value="abcd"/>
-          </Map>
-        </value>
-      </entry>
-      <entry key="create-snapshot" value="no"/>
-      <entry key="delete-accounts" value="no"/>
-      <entry key="delete-entitlement" value="no"/>
-      <entry key="disable-accounts" value="yes"/>
-      <entry key="exception-list">
-        <value>
-          <Map>
-            <entry key="delete-accounts">
-              <value>
-                <List>
-                  <String>null</String>
-                </List>
-              </value>
-            </entry>
-            <entry key="disable-accounts">
-              <value>
-                <List>
-                  <String>null</String>
-                </List>
-              </value>
-            </entry>
-            <entry key="entitlements-delete">
-              <value>
-                <List>
-                  <String>null</String>
-                </List>
-              </value>
-            </entry>
-            <entry key="reset-password">
-              <value>
-                <List>
-                  <String>null</String>
-                </List>
-              </value>
-            </entry>
-          </Map>
-        </value>
-      </entry>
-      <entry key="hide-email" value="no"/>
-      <entry key="manual-work-item" value="no"/>
-      <entry key="move-ou" value="no"/>
-      <entry key="new-ou" value="groups,Contractors"/>
-      <entry key="password-map">
-        <value>
-          <Map>
-            <entry key="Financials" value="abc"/>
-          </Map>
-        </value>
-      </entry>
-      <entry key="reset-password" value="no"/>
-      <entry key="workitem-owner" value="Walter.Henderson"/>
-    </Map>
-  </Attributes>
-</Custom>
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE QuickLink PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<QuickLink action="workflow" category="Access" created="1468356095256" cssClass="quicklink-request-access" id="4028f68155e05c970155e0d7ed170017" messageKey="Triumvir Standard Leaver Process" modified="1470851507638" name="TriumvirLeaver2.0">
-  <Attributes>
-    <Map>
-      <entry key="workflowName" value="TriumvirLeaver2.0"/>
-    </Map>
-  </Attributes>
-  <Description>Launches the Immediate Termination workflow. This QuickLink is scoped to only users with the "Immediate Termination" Dynamic Scope</Description>
-</QuickLink>
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Rule created="1469722793435" id="8a81811b562de6a30156324e15da00e7" language="beanshell" modified="1469725703996" name="Change_Password" type="Workflow">
-  <Description>A rule used by a Workflow to determine a step action or variable value.
+<sailpoint>
+	<Custom created="1468513239090" id="8a81811b55ea08050155ea35c032001a"
+		modified="1471465634049" name="Triumvir-standard-leaver">
+		<Attributes>
+			<Map>
+				<entry key="change_password">
+					<value>
+						<Map>
+							<entry key="new_password" value="abcd" />
+						</Map>
+					</value>
+				</entry>
+				<entry key="create-snapshot" value="no" />
+				<entry key="delete-accounts" value="no" />
+				<entry key="delete-entitlement" value="no" />
+				<entry key="disable-accounts" value="yes" />
+				<entry key="exception-list">
+					<value>
+						<Map>
+							<entry key="delete-accounts">
+								<value>
+									<List>
+										<String>null</String>
+									</List>
+								</value>
+							</entry>
+							<entry key="disable-accounts">
+								<value>
+									<List>
+										<String>null</String>
+									</List>
+								</value>
+							</entry>
+							<entry key="entitlements-delete">
+								<value>
+									<List>
+										<String>null</String>
+									</List>
+								</value>
+							</entry>
+							<entry key="reset-password">
+								<value>
+									<List>
+										<String>null</String>
+									</List>
+								</value>
+							</entry>
+						</Map>
+					</value>
+				</entry>
+				<entry key="hide-email" value="no" />
+				<entry key="manual-work-item" value="no" />
+				<entry key="move-ou" value="no" />
+				<entry key="new-ou" value="groups,Contractors" />
+				<entry key="password-map">
+					<value>
+						<Map>
+							<entry key="Financials" value="abc" />
+						</Map>
+					</value>
+				</entry>
+				<entry key="reset-password" value="no" />
+				<entry key="workitem-owner" value="Walter.Henderson" />
+			</Map>
+		</Attributes>
+	</Custom>
+	<QuickLink action="workflow" category="Access" created="1468356095256"
+		cssClass="quicklink-request-access" id="4028f68155e05c970155e0d7ed170017"
+		messageKey="Triumvir Standard Leaver Process" modified="1470851507638"
+		name="TriumvirLeaver2.0">
+		<Attributes>
+			<Map>
+				<entry key="workflowName" value="TriumvirLeaver2.0" />
+			</Map>
+		</Attributes>
+		<Description>Launches the Immediate Termination workflow. This
+			QuickLink is scoped to only users with the "Immediate Termination"
+			Dynamic Scope</Description>
+	</QuickLink>
+	<Rule created="1469722793435" id="8a81811b562de6a30156324e15da00e7"
+		language="beanshell" modified="1469725703996" name="Change_Password"
+		type="Workflow">
+		<Description>A rule used by a Workflow to determine a step action or
+			variable value.
 
-Note that an Attributes map of all variables from the current WorkflowContext, merged with the arguments from the Step, is also passed into the workflow rule.</Description>
-  <Signature returnType="Object">
-    <Inputs>
-      <Argument name="log">
-        <Description>
-          The log object associated with the SailPointContext.
-        </Description>
-      </Argument>
-      <Argument name="context">
-        <Description>
-          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
-        </Description>
-      </Argument>
-      <Argument name="wfcontext">
-        <Description>
-          The current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="handler">
-        <Description>
-          The workflow handler associated with the current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="workflow">
-        <Description>
-          The current Workflow definition.
-        </Description>
-      </Argument>
-      <Argument name="step">
-        <Description>
-          The current Step.
-        </Description>
-      </Argument>
-      <Argument name="approval">
-        <Description>
-          The current Approval.
-        </Description>
-      </Argument>
-      <Argument name="item">
-        <Description>
-          The WorkItem being processed.
-        </Description>
-      </Argument>
-    </Inputs>
-    <Returns>
-      <Argument name="Object">
-        <Description>
-          The result of the workflow rule; dependent on the rule itself.
-        </Description>
-      </Argument>
-    </Returns>
-  </Signature>
-  <Source>
-import com.triumvir.leaver.Password;
-import com.triumvir.leaver.utils.ProvisioningExecutor;
-import sailpoint.object.Identity;
-import sailpoint.object.ProvisioningPlan;
-import java.util.Map;
-import sailpoint.object.Custom;
+			Note that an Attributes map of all variables from the
+			current
+			WorkflowContext, merged with the arguments from the Step, is
+			also
+			passed into the workflow rule.</Description>
+		<Signature returnType="Object">
+			<Inputs>
+				<Argument name="log">
+					<Description>
+						The log object associated with the SailPointContext.
+					</Description>
+				</Argument>
+				<Argument name="context">
+					<Description>
+						A sailpoint.api.SailPointContext object that can be
+						used to query
+						the database if necessary.
+					</Description>
+				</Argument>
+				<Argument name="wfcontext">
+					<Description>
+						The current WorkflowContext.
+					</Description>
+				</Argument>
+				<Argument name="handler">
+					<Description>
+						The workflow handler associated with the current
+						WorkflowContext.
+					</Description>
+				</Argument>
+				<Argument name="workflow">
+					<Description>
+						The current Workflow definition.
+					</Description>
+				</Argument>
+				<Argument name="step">
+					<Description>
+						The current Step.
+					</Description>
+				</Argument>
+				<Argument name="approval">
+					<Description>
+						The current Approval.
+					</Description>
+				</Argument>
+				<Argument name="item">
+					<Description>
+						The WorkItem being processed.
+					</Description>
+				</Argument>
+			</Inputs>
+			<Returns>
+				<Argument name="Object">
+					<Description>
+						The result of the workflow rule; dependent on the rule
+						itself.
+					</Description>
+				</Argument>
+			</Returns>
+		</Signature>
+		<Source>
+			import com.triumvir.leaver.Password;
+			import
+			com.triumvir.leaver.utils.ProvisioningExecutor;
+			import
+			sailpoint.object.Identity;
+			import sailpoint.object.ProvisioningPlan;
+			import java.util.Map;
+			import sailpoint.object.Custom;
 
-    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-    String choise = simpleChoise.get("reset-password");
+			Custom
+			simpleChoise = context.getObjectByName(Custom.class,
+			"Triumvir-standard-leaver");
+			String choise =
+			simpleChoise.get("reset-password");
 
-    if ("yes".equals(choise))
-    {
-        for(String id: idsList)
-        {
-            Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-            Map appsToChangePass = simpleChoise.get("password-map");
-            Identity identity = context.getObjectById(Identity.class, id);
-            
-            Map exceptionList = simpleChoise.get("exception-list");
-            List passwordList = exceptionList.get("reset-password");
-            if(passwordList.contains(identity.getName()))
-            {
-                System.out.println("Excluding... " + identity.getName());
-            }
-            else
-            {
-                Password password = new Password(identity);
-                if(appsToChangePass.containsKey("Identity"))
-                {
-                    identity = password.getIdentity(); 
-                    context.saveObject(identity);
-                    context.commitTransaction();
-                }
-                ProvisioningPlan plan = password.changePassword(appsToChangePass);
-                ProvisioningExecutor.getInstance().executeProvisioning(plan, context);
-            }
-            
-        }
-        
-    }</Source>
-</Rule>
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Rule created="1470675123442" id="8a81811b56579b3501566b117cf20160" language="beanshell" modified="1470675424751" name="Delete_accounts" type="Workflow">
-  <Description>A rule used by a Workflow to determine a step action or variable value.
+			if ("yes".equals(choise))
+			{
+			for(String id: idsList)
+			{
+			Custom simpleChoise =
+			context.getObjectByName(Custom.class,
+			"Triumvir-standard-leaver");
+			Map
+			appsToChangePass = simpleChoise.get("password-map");
+			Identity identity
+			= context.getObjectById(Identity.class, id);
 
-Note that an Attributes map of all variables from the current WorkflowContext, merged with the arguments from the Step, is also passed into the workflow rule.</Description>
-  <Signature returnType="Object">
-    <Inputs>
-      <Argument name="log">
-        <Description>
-          The log object associated with the SailPointContext.
-        </Description>
-      </Argument>
-      <Argument name="context">
-        <Description>
-          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
-        </Description>
-      </Argument>
-      <Argument name="wfcontext">
-        <Description>
-          The current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="handler">
-        <Description>
-          The workflow handler associated with the current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="workflow">
-        <Description>
-          The current Workflow definition.
-        </Description>
-      </Argument>
-      <Argument name="step">
-        <Description>
-          The current Step.
-        </Description>
-      </Argument>
-      <Argument name="approval">
-        <Description>
-          The current Approval.
-        </Description>
-      </Argument>
-      <Argument name="item">
-        <Description>
-          The WorkItem being processed.
-        </Description>
-      </Argument>
-    </Inputs>
-    <Returns>
-      <Argument name="Object">
-        <Description>
-          The result of the workflow rule; dependent on the rule itself.
-        </Description>
-      </Argument>
-    </Returns>
-  </Signature>
-  <Source>
-import com.triumvir.leaver.Account;
-import com.triumvir.leaver.utils.ProvisioningExecutor;
-import sailpoint.object.Identity;
-import sailpoint.object.Custom;
-import sailpoint.object.ProvisioningPlan;
-import java.util.Map;
-import java.util.List;
+			Map exceptionList =
+			simpleChoise.get("exception-list");
+			List passwordList =
+			exceptionList.get("reset-password");
+			if(passwordList.contains(identity.getName()))
+			{
+			System.out.println("Excluding... " + identity.getName());
+			}
+			else
+			{
+			Password password = new Password(identity);
+			if(appsToChangePass.containsKey("Identity"))
+			{
+			identity =
+			password.getIdentity();
+			context.saveObject(identity);
+			context.commitTransaction();
+			}
+			ProvisioningPlan plan =
+			password.changePassword(appsToChangePass);
+			ProvisioningExecutor.getInstance().executeProvisioning(plan,
+			context);
+			}
 
-    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-    String choise = simpleChoise.get("delete-accounts");
-    String disableAccounts = simpleChoise.get("disable-accounts");
+			}
 
-    if ("yes".equals(choise) &amp;&amp; "no".equals(disableAccounts))
-    {
-        for(String id: idsList)
-        {
-            Identity identity = context.getObjectById(Identity.class, id);
-            Account account = new Account();
-            Map exceptionList = simpleChoise.get("exception-list");
-            List deleteListException = exceptionList.get("delete-accounts");
-            if(deleteListException.contains(identity.getName())) {
-                    System.out.println("Excluding ... " + identity.getName());
-                 }
-            else
-            {
-                  ProvisioningPlan plan = account.deleteAccounts(identity, null);
-                  System.out.println(plan.toXml());
-                  ProvisioningExecutor.getInstance().executeProvisioning(plan, context);
-            }
+			}</Source>
+	</Rule>
+	<Rule created="1470675123442" id="8a81811b56579b3501566b117cf20160"
+		language="beanshell" modified="1470675424751" name="Delete_accounts"
+		type="Workflow">
+		<Description>A rule used by a Workflow to determine a step action or
+			variable value.
 
-        }
-   
-    }</Source>
-</Rule>
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Rule created="1468958092900" id="4028f6815604a1cb015604b9ae630008" language="beanshell" modified="1468961919394" name="Delete_Entitlements" type="Workflow">
-  <Description>A rule used by a Workflow to determine a step action or variable value.
+			Note that an Attributes map of all variables from the
+			current
+			WorkflowContext, merged with the arguments from the Step, is
+			also
+			passed into the workflow rule.</Description>
+		<Signature returnType="Object">
+			<Inputs>
+				<Argument name="log">
+					<Description>
+						The log object associated with the SailPointContext.
+					</Description>
+				</Argument>
+				<Argument name="context">
+					<Description>
+						A sailpoint.api.SailPointContext object that can be
+						used to query
+						the database if necessary.
+					</Description>
+				</Argument>
+				<Argument name="wfcontext">
+					<Description>
+						The current WorkflowContext.
+					</Description>
+				</Argument>
+				<Argument name="handler">
+					<Description>
+						The workflow handler associated with the current
+						WorkflowContext.
+					</Description>
+				</Argument>
+				<Argument name="workflow">
+					<Description>
+						The current Workflow definition.
+					</Description>
+				</Argument>
+				<Argument name="step">
+					<Description>
+						The current Step.
+					</Description>
+				</Argument>
+				<Argument name="approval">
+					<Description>
+						The current Approval.
+					</Description>
+				</Argument>
+				<Argument name="item">
+					<Description>
+						The WorkItem being processed.
+					</Description>
+				</Argument>
+			</Inputs>
+			<Returns>
+				<Argument name="Object">
+					<Description>
+						The result of the workflow rule; dependent on the rule
+						itself.
+					</Description>
+				</Argument>
+			</Returns>
+		</Signature>
+		<Source>
+			import com.triumvir.leaver.Account;
+			import
+			com.triumvir.leaver.utils.ProvisioningExecutor;
+			import
+			sailpoint.object.Identity;
+			import sailpoint.object.Custom;
+			import
+			sailpoint.object.ProvisioningPlan;
+			import java.util.Map;
+			import
+			java.util.List;
 
-Note that an Attributes map of all variables from the current WorkflowContext, merged with the arguments from the Step, is also passed into the workflow rule.</Description>
-  <Signature returnType="Object">
-    <Inputs>
-      <Argument name="log">
-        <Description>
-          The log object associated with the SailPointContext.
-        </Description>
-      </Argument>
-      <Argument name="context">
-        <Description>
-          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
-        </Description>
-      </Argument>
-      <Argument name="wfcontext">
-        <Description>
-          The current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="handler">
-        <Description>
-          The workflow handler associated with the current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="workflow">
-        <Description>
-          The current Workflow definition.
-        </Description>
-      </Argument>
-      <Argument name="step">
-        <Description>
-          The current Step.
-        </Description>
-      </Argument>
-      <Argument name="approval">
-        <Description>
-          The current Approval.
-        </Description>
-      </Argument>
-      <Argument name="item">
-        <Description>
-          The WorkItem being processed.
-        </Description>
-      </Argument>
-    </Inputs>
-    <Returns>
-      <Argument name="Object">
-        <Description>
-          The result of the workflow rule; dependent on the rule itself.
-        </Description>
-      </Argument>
-    </Returns>
-  </Signature>
-  <Source>
-import com.triumvir.leaver.EntitlementOperations;
-import com.triumvir.leaver.utils.ProvisioningExecutor;
+			Custom simpleChoise =
+			context.getObjectByName(Custom.class,
+			"Triumvir-standard-leaver");
+			String choise = simpleChoise.get("delete-accounts");
+			String
+			disableAccounts = simpleChoise.get("disable-accounts");
 
-import sailpoint.object.ProvisioningPlan;
-import sailpoint.object.Identity;
-import sailpoint.object.Custom;
-import java.util.List;
-import sailpoint.api.Terminator;
-import sailpoint.object.Custom;
-import java.util.Map;
+			if
+			("yes".equals(choise) &amp;&amp; "no".equals(disableAccounts))
+			{
+			for(String id: idsList)
+			{
+			Identity identity =
+			context.getObjectById(Identity.class, id);
+			Account account = new
+			Account();
+			Map exceptionList = simpleChoise.get("exception-list");
+			List deleteListException = exceptionList.get("delete-accounts");
+			if(deleteListException.contains(identity.getName())) {
+			System.out.println("Excluding ... " + identity.getName());
+			}
+			else
+			{
+			ProvisioningPlan plan = account.deleteAccounts(identity, null);
+			System.out.println(plan.toXml());
+			ProvisioningExecutor.getInstance().executeProvisioning(plan,
+			context);
+			}
 
-    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-    String choise = simpleChoise.get("delete-entitlement");
+			}
 
-    if ("yes".equals(choise))
-    {
-        for(String id: idsList)
-        {
+			}</Source>
+	</Rule>
+	<Rule created="1468958092900" id="4028f6815604a1cb015604b9ae630008"
+		language="beanshell" modified="1468961919394" name="Delete_Entitlements"
+		type="Workflow">
+		<Description>A rule used by a Workflow to determine a step action or
+			variable value.
 
-            ProvisioningPlan plan = new ProvisioningPlan();
-            EntitlementOperations entitlement = new EntitlementOperations();
-  
-            Identity identity = context.getObjectById(Identity.class, id);
-            Map exceptionList = simpleChoise.get("exception-list");
-            List deleteListException = exceptionList.get("entitlements-delete");
-            if(deleteListException.contains(identity.getName()))
-            {
-                System.out.println("Excluding... " + identity.getName());
-            }
-            else
-            {
-                plan = entitlement.getDeleteEntitlementProvisioninPlan(identity, context, null);
-                System.out.println(plan.toXml());
-                ProvisioningExecutor.getInstance().executeProvisioning(plan, context);
-            }  
-        }
-    }
-  </Source>
-</Rule>
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Rule created="1468529418076" id="4028f68155eb26d00155eb2c9f5c0004" language="beanshell" modified="1468948798047" name="Disable_accounts" type="Workflow">
-  <Description>A rule used by a Workflow to determine a step action or variable value.
+			Note that an Attributes map of all variables from the
+			current
+			WorkflowContext, merged with the arguments from the Step, is
+			also
+			passed into the workflow rule.</Description>
+		<Signature returnType="Object">
+			<Inputs>
+				<Argument name="log">
+					<Description>
+						The log object associated with the SailPointContext.
+					</Description>
+				</Argument>
+				<Argument name="context">
+					<Description>
+						A sailpoint.api.SailPointContext object that can be
+						used to query
+						the database if necessary.
+					</Description>
+				</Argument>
+				<Argument name="wfcontext">
+					<Description>
+						The current WorkflowContext.
+					</Description>
+				</Argument>
+				<Argument name="handler">
+					<Description>
+						The workflow handler associated with the current
+						WorkflowContext.
+					</Description>
+				</Argument>
+				<Argument name="workflow">
+					<Description>
+						The current Workflow definition.
+					</Description>
+				</Argument>
+				<Argument name="step">
+					<Description>
+						The current Step.
+					</Description>
+				</Argument>
+				<Argument name="approval">
+					<Description>
+						The current Approval.
+					</Description>
+				</Argument>
+				<Argument name="item">
+					<Description>
+						The WorkItem being processed.
+					</Description>
+				</Argument>
+			</Inputs>
+			<Returns>
+				<Argument name="Object">
+					<Description>
+						The result of the workflow rule; dependent on the rule
+						itself.
+					</Description>
+				</Argument>
+			</Returns>
+		</Signature>
+		<Source>
+			import com.triumvir.leaver.EntitlementOperations;
+			import
+			com.triumvir.leaver.utils.ProvisioningExecutor;
 
-Note that an Attributes map of all variables from the current WorkflowContext, merged with the arguments from the Step, is also passed into the workflow rule.</Description>
-  <Signature returnType="Object">
-    <Inputs>
-      <Argument name="log">
-        <Description>
-          The log object associated with the SailPointContext.
-        </Description>
-      </Argument>
-      <Argument name="context">
-        <Description>
-          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
-        </Description>
-      </Argument>
-      <Argument name="wfcontext">
-        <Description>
-          The current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="handler">
-        <Description>
-          The workflow handler associated with the current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="workflow">
-        <Description>
-          The current Workflow definition.
-        </Description>
-      </Argument>
-      <Argument name="step">
-        <Description>
-          The current Step.
-        </Description>
-      </Argument>
-      <Argument name="approval">
-        <Description>
-          The current Approval.
-        </Description>
-      </Argument>
-      <Argument name="item">
-        <Description>
-          The WorkItem being processed.
-        </Description>
-      </Argument>
-    </Inputs>
-    <Returns>
-      <Argument name="Object">
-        <Description>
-          The result of the workflow rule; dependent on the rule itself.
-        </Description>
-      </Argument>
-    </Returns>
-  </Signature>
-  <Source>
-import com.triumvir.leaver.Account;
-import com.triumvir.leaver.utils.ExclusionList;
-import com.triumvir.leaver.utils.ProvisioningExecutor;
-import sailpoint.object.ProvisioningPlan;
-import sailpoint.object.Identity;
-import sailpoint.object.Custom;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
+			import
+			sailpoint.object.ProvisioningPlan;
+			import sailpoint.object.Identity;
+			import sailpoint.object.Custom;
+			import java.util.List;
+			import
+			sailpoint.api.Terminator;
+			import sailpoint.object.Custom;
+			import
+			java.util.Map;
 
-  
-    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-    String choise = simpleChoise.get("disable-accounts");
-    if ("yes".equals(choise))
-    {
-        String deleteAccounts = simpleChoise.get("delete-accounts");
-        if("yes".equals(deleteAccounts))
-         {
-             simpleChoise.put("delete-accounts", "no");
-         }
-        for(String id: idsList)
-        {
+			Custom simpleChoise =
+			context.getObjectByName(Custom.class,
+			"Triumvir-standard-leaver");
+			String choise = simpleChoise.get("delete-entitlement");
 
-            ProvisioningPlan plan = new ProvisioningPlan();
-            Account account = new Account();
-  
-            Identity identity = context.getObjectById(Identity.class, id);
-            Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-            
-            Map exceptionList = custom.get("exception-list");
-            List disableListException = exceptionList.get("disable-accounts");
-            
-            if(disableListException.contains(identity.getName()))
-            {
-                System.out.println("Excluding ... " + identity.getName());
-            }
-            else
-            {
-                plan = account.getProvisioninPlan(identity, context, disableListException);
-                System.out.println(plan.toXml());
-                ProvisioningExecutor.getInstance().executeProvisioning(plan, context);
-            }   
-        }   
-   }
-  </Source>
-</Rule>
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Rule created="1469829121974" id="8a81811b56383bc0015638a487b60032" language="beanshell" modified="1470084315304" name="Hide_Email" type="Workflow">
-  <Description>A rule used by a Workflow to determine a step action or variable value.
+			if
+			("yes".equals(choise))
+			{
+			for(String id: idsList)
+			{
 
-Note that an Attributes map of all variables from the current WorkflowContext, merged with the arguments from the Step, is also passed into the workflow rule.</Description>
-  <Signature returnType="Object">
-    <Inputs>
-      <Argument name="log">
-        <Description>
-          The log object associated with the SailPointContext.
-        </Description>
-      </Argument>
-      <Argument name="context">
-        <Description>
-          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
-        </Description>
-      </Argument>
-      <Argument name="wfcontext">
-        <Description>
-          The current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="handler">
-        <Description>
-          The workflow handler associated with the current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="workflow">
-        <Description>
-          The current Workflow definition.
-        </Description>
-      </Argument>
-      <Argument name="step">
-        <Description>
-          The current Step.
-        </Description>
-      </Argument>
-      <Argument name="approval">
-        <Description>
-          The current Approval.
-        </Description>
-      </Argument>
-      <Argument name="item">
-        <Description>
-          The WorkItem being processed.
-        </Description>
-      </Argument>
-    </Inputs>
-    <Returns>
-      <Argument name="Object">
-        <Description>
-          The result of the workflow rule; dependent on the rule itself.
-        </Description>
-      </Argument>
-    </Returns>
-  </Signature>
-  <Source>
- import com.triumvir.leaver.Email;
-import com.triumvir.leaver.utils.ProvisioningExecutor;
-import sailpoint.object.ProvisioningPlan;
-import sailpoint.object.Identity;
-import sailpoint.object.Custom;
+			ProvisioningPlan plan
+			= new ProvisioningPlan();
+			EntitlementOperations entitlement = new
+			EntitlementOperations();
 
-    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-    String choise = simpleChoise.get("hide-email");
+			Identity identity =
+			context.getObjectById(Identity.class, id);
+			Map exceptionList =
+			simpleChoise.get("exception-list");
+			List deleteListException =
+			exceptionList.get("entitlements-delete");
+			if(deleteListException.contains(identity.getName()))
+			{
+			System.out.println("Excluding... " + identity.getName());
+			}
+			else
+			{
+			plan =
+			entitlement.getDeleteEntitlementProvisioninPlan(identity, context,
+			null);
+			System.out.println(plan.toXml());
+			ProvisioningExecutor.getInstance().executeProvisioning(plan,
+			context);
+			}
+			}
+			}
+		</Source>
+	</Rule>
+	<Rule created="1468529418076" id="4028f68155eb26d00155eb2c9f5c0004"
+		language="beanshell" modified="1468948798047" name="Disable_accounts"
+		type="Workflow">
+		<Description>A rule used by a Workflow to determine a step action or
+			variable value.
 
-    if ("yes".equals(choise))
-    {
-        for(String id : idsList)
-        {
-            Identity identity = context.getObjectById(Identity.class, id);
-            Email email = new Email(identity);
-            ProvisioningPlan plan = email.hideEmail();
-            System.out.println(plan.toXml());
-            ProvisioningExecutor.getInstance().executeProvisioning(plan, context);
-        }
-     
-    }</Source>
-</Rule>
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Rule created="1468423326214" id="8a81811b55e4d6e50155e4d9ca060004" language="beanshell" modified="1468510300487" name="Identity_Snapshot" type="Workflow">
-  <Description>A rule used by a Workflow to determine a step action or variable value.
+			Note that an Attributes map of all variables from the
+			current
+			WorkflowContext, merged with the arguments from the Step, is
+			also
+			passed into the workflow rule.</Description>
+		<Signature returnType="Object">
+			<Inputs>
+				<Argument name="log">
+					<Description>
+						The log object associated with the SailPointContext.
+					</Description>
+				</Argument>
+				<Argument name="context">
+					<Description>
+						A sailpoint.api.SailPointContext object that can be
+						used to query
+						the database if necessary.
+					</Description>
+				</Argument>
+				<Argument name="wfcontext">
+					<Description>
+						The current WorkflowContext.
+					</Description>
+				</Argument>
+				<Argument name="handler">
+					<Description>
+						The workflow handler associated with the current
+						WorkflowContext.
+					</Description>
+				</Argument>
+				<Argument name="workflow">
+					<Description>
+						The current Workflow definition.
+					</Description>
+				</Argument>
+				<Argument name="step">
+					<Description>
+						The current Step.
+					</Description>
+				</Argument>
+				<Argument name="approval">
+					<Description>
+						The current Approval.
+					</Description>
+				</Argument>
+				<Argument name="item">
+					<Description>
+						The WorkItem being processed.
+					</Description>
+				</Argument>
+			</Inputs>
+			<Returns>
+				<Argument name="Object">
+					<Description>
+						The result of the workflow rule; dependent on the rule
+						itself.
+					</Description>
+				</Argument>
+			</Returns>
+		</Signature>
+		<Source>
+			import com.triumvir.leaver.Account;
+			import
+			com.triumvir.leaver.utils.ExclusionList;
+			import
+			com.triumvir.leaver.utils.ProvisioningExecutor;
+			import
+			sailpoint.object.ProvisioningPlan;
+			import sailpoint.object.Identity;
+			import sailpoint.object.Custom;
+			import java.util.List;
+			import
+			java.util.ArrayList;
+			import java.util.Map;
 
-Note that an Attributes map of all variables from the current WorkflowContext, merged with the arguments from the Step, is also passed into the workflow rule.</Description>
-  <Signature returnType="Object">
-    <Inputs>
-      <Argument name="log">
-        <Description>
-          The log object associated with the SailPointContext.
-        </Description>
-      </Argument>
-      <Argument name="context">
-        <Description>
-          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
-        </Description>
-      </Argument>
-      <Argument name="wfcontext">
-        <Description>
-          The current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="handler">
-        <Description>
-          The workflow handler associated with the current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="workflow">
-        <Description>
-          The current Workflow definition.
-        </Description>
-      </Argument>
-      <Argument name="step">
-        <Description>
-          The current Step.
-        </Description>
-      </Argument>
-      <Argument name="approval">
-        <Description>
-          The current Approval.
-        </Description>
-      </Argument>
-      <Argument name="item">
-        <Description>
-          The WorkItem being processed.
-        </Description>
-      </Argument>
-    </Inputs>
-    <Returns>
-      <Argument name="Object">
-        <Description>
-          The result of the workflow rule; dependent on the rule itself.
-        </Description>
-      </Argument>
-    </Returns>
-  </Signature>
-  <Source>
-import com.triumvir.leaver.Snapshot;
-import sailpoint.object.Identity;
-  for(String id: idsList){
-        Snapshot snapshot = new Snapshot();
-        Identity identity = context.getObjectById(Identity.class, id);
-        snapshot.createSnapshot(identity, context);
-}
-  </Source>
-</Rule>
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Rule created="1469569789918" id="8a81811b56292cfa0156292f6fde0019" language="beanshell" modified="1469642451841" name="Manual_WorkItem" type="Workflow">
-  <Description>A rule used by a Workflow to determine a step action or variable value.
 
-Note that an Attributes map of all variables from the current WorkflowContext, merged with the arguments from the Step, is also passed into the workflow rule.</Description>
-  <Signature returnType="Object">
-    <Inputs>
-      <Argument name="log">
-        <Description>
-          The log object associated with the SailPointContext.
-        </Description>
-      </Argument>
-      <Argument name="context">
-        <Description>
-          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
-        </Description>
-      </Argument>
-      <Argument name="wfcontext">
-        <Description>
-          The current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="handler">
-        <Description>
-          The workflow handler associated with the current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="workflow">
-        <Description>
-          The current Workflow definition.
-        </Description>
-      </Argument>
-      <Argument name="step">
-        <Description>
-          The current Step.
-        </Description>
-      </Argument>
-      <Argument name="approval">
-        <Description>
-          The current Approval.
-        </Description>
-      </Argument>
-      <Argument name="item">
-        <Description>
-          The WorkItem being processed.
-        </Description>
-      </Argument>
-    </Inputs>
-    <Returns>
-      <Argument name="Object">
-        <Description>
-          The result of the workflow rule; dependent on the rule itself.
-        </Description>
-      </Argument>
-    </Returns>
-  </Signature>
-  <Source>
-import com.triumvir.leaver.ManualWorkItem;
-import com.triumvir.leaver.utils.ObjectSaver;
-import sailpoint.object.Identity;
-import sailpoint.object.WorkItem;
-import sailpoint.object.Custom;
+			Custom simpleChoise =
+			context.getObjectByName(Custom.class,
+			"Triumvir-standard-leaver");
+			String choise = simpleChoise.get("disable-accounts");
+			if
+			("yes".equals(choise))
+			{
+			String deleteAccounts =
+			simpleChoise.get("delete-accounts");
+			if("yes".equals(deleteAccounts))
+			{
+			simpleChoise.put("delete-accounts", "no");
+			}
+			for(String id: idsList)
+			{
 
-    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-    String choise = simpleChoise.get("manual-work-item");
+			ProvisioningPlan plan = new ProvisioningPlan();
+			Account account = new
+			Account();
 
-    if ("yes".equals(choise))
-    {
-        for(String id: idsList)
-        {
-            Identity owner = null;
-            String ownerName = simpleChoise.get("workitem-owner");
-            if(!ownerName.isEmpty())
-            {
-                owner = context.getObjectByName(Identity.class, ownerName);
-            }
-            Identity identity = context.getObjectById(Identity.class, id);
-            ManualWorkItem wItem = new ManualWorkItem();
-            Identity requester = context.getObjectByName(Identity.class, launcher);
-            System.out.println(launcher.getClass());
+			Identity identity = context.getObjectById(Identity.class,
+			id);
+			Custom custom = context.getObjectByName(Custom.class,
+			"Triumvir-standard-leaver");
 
-            WorkItem workItem = wItem.createWorkItem(identity, owner, context, requester);
-            ObjectSaver.getInstance().saveManualWorkItem(context, workItem);
-        }
-       
-    }</Source>
-</Rule><?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE Rule PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Rule created="1470264137886" id="8a81811b5652834901565292589e0006" language="beanshell" modified="1470347052518" name="Move_OU" type="Workflow">
-  <Description>A rule used by a Workflow to determine a step action or variable value.
+			Map exceptionList =
+			custom.get("exception-list");
+			List disableListException =
+			exceptionList.get("disable-accounts");
 
-Note that an Attributes map of all variables from the current WorkflowContext, merged with the arguments from the Step, is also passed into the workflow rule.</Description>
-  <Signature returnType="Object">
-    <Inputs>
-      <Argument name="log">
-        <Description>
-          The log object associated with the SailPointContext.
-        </Description>
-      </Argument>
-      <Argument name="context">
-        <Description>
-          A sailpoint.api.SailPointContext object that can be used to query the database if necessary.
-        </Description>
-      </Argument>
-      <Argument name="wfcontext">
-        <Description>
-          The current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="handler">
-        <Description>
-          The workflow handler associated with the current WorkflowContext.
-        </Description>
-      </Argument>
-      <Argument name="workflow">
-        <Description>
-          The current Workflow definition.
-        </Description>
-      </Argument>
-      <Argument name="step">
-        <Description>
-          The current Step.
-        </Description>
-      </Argument>
-      <Argument name="approval">
-        <Description>
-          The current Approval.
-        </Description>
-      </Argument>
-      <Argument name="item">
-        <Description>
-          The WorkItem being processed.
-        </Description>
-      </Argument>
-    </Inputs>
-    <Returns>
-      <Argument name="Object">
-        <Description>
-          The result of the workflow rule; dependent on the rule itself.
-        </Description>
-      </Argument>
-    </Returns>
-  </Signature>
-  <Source>
-import com.triumvir.leaver.OU;
-import com.triumvir.leaver.utils.ProvisioningExecutor;
-import sailpoint.object.Identity;
-import sailpoint.object.Custom;
-import sailpoint.object.ProvisioningPlan;
-import sailpoint.object.Custom;
+			if(disableListException.contains(identity.getName()))
+			{
+			System.out.println("Excluding ... " + identity.getName());
+			}
+			else
+			{
+			plan
+			= account.getProvisioninPlan(identity, context,
+			disableListException);
+			System.out.println(plan.toXml());
+			ProvisioningExecutor.getInstance().executeProvisioning(plan,
+			context);
+			}
+			}
+			}
+		</Source>
+	</Rule>
+	<Rule created="1469829121974" id="8a81811b56383bc0015638a487b60032"
+		language="beanshell" modified="1470084315304" name="Hide_Email" type="Workflow">
+		<Description>A rule used by a Workflow to determine a step action or
+			variable value.
 
-    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-    String choise = simpleChoise.get("move-ou");
+			Note that an Attributes map of all variables from the
+			current
+			WorkflowContext, merged with the arguments from the Step, is
+			also
+			passed into the workflow rule.</Description>
+		<Signature returnType="Object">
+			<Inputs>
+				<Argument name="log">
+					<Description>
+						The log object associated with the SailPointContext.
+					</Description>
+				</Argument>
+				<Argument name="context">
+					<Description>
+						A sailpoint.api.SailPointContext object that can be
+						used to query
+						the database if necessary.
+					</Description>
+				</Argument>
+				<Argument name="wfcontext">
+					<Description>
+						The current WorkflowContext.
+					</Description>
+				</Argument>
+				<Argument name="handler">
+					<Description>
+						The workflow handler associated with the current
+						WorkflowContext.
+					</Description>
+				</Argument>
+				<Argument name="workflow">
+					<Description>
+						The current Workflow definition.
+					</Description>
+				</Argument>
+				<Argument name="step">
+					<Description>
+						The current Step.
+					</Description>
+				</Argument>
+				<Argument name="approval">
+					<Description>
+						The current Approval.
+					</Description>
+				</Argument>
+				<Argument name="item">
+					<Description>
+						The WorkItem being processed.
+					</Description>
+				</Argument>
+			</Inputs>
+			<Returns>
+				<Argument name="Object">
+					<Description>
+						The result of the workflow rule; dependent on the rule
+						itself.
+					</Description>
+				</Argument>
+			</Returns>
+		</Signature>
+		<Source>
+			import com.triumvir.leaver.Email;
+			import
+			com.triumvir.leaver.utils.ProvisioningExecutor;
+			import
+			sailpoint.object.ProvisioningPlan;
+			import sailpoint.object.Identity;
+			import sailpoint.object.Custom;
 
-    if ("yes".equals(choise))
-    {
-        for(String id: idsList)
-        {
-            Identity identity = context.getObjectById(Identity.class, id);
-            Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-            String valueOU = custom.get("new-ou");
-            OU ouClass= new OU(identity);
-            ProvisioningPlan plan = ouClass.moveOU(valueOU);
-            System.out.println(plan.toXml());
-            ProvisioningExecutor.getInstance().executeProvisioning(plan, context);
-        }
-           
-    }</Source>
-</Rule>
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE Workflow PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Workflow created="1468355703242" explicitTransitions="true" id="4028f68155e05c970155e0d1f1ca0015" modified="1471023543947" name="TriumvirLeaver2.0">
-  <Variable input="true" name="launcher"/>
-  <Variable input="true" name="quickLinkIdentityId"/>
-  <Variable input="true" name="quickLinkIdentityIds"/>
-  <Variable input="true" name="request"/>
-  <Variable name="identityName">
-    <Script>
-      <Source>/*import sailpoint.object.Identity;
+			Custom simpleChoise =
+			context.getObjectByName(Custom.class,
+			"Triumvir-standard-leaver");
+			String choise = simpleChoise.get("hide-email");
 
-Identity identity = context.getObjectById(Identity.class, quickLinkIdentityId);
-return identity.getName();*/</Source>
-    </Script>
-  </Variable>
-  <Variable input="true" name="plan"/>
-  <Variable input="true" name="idsList">
-    <Description>This is a wrapper variable for the content of the WF variables quickLinkIdentityId and quickLinkIdentityIds.</Description>
-    <Script>
-      <Source>
-import java.util.List;
-import java.util.ArrayList;
+			if
+			("yes".equals(choise))
+			{
+			for(String id : idsList)
+			{
+			Identity identity =
+			context.getObjectById(Identity.class, id);
+			Email email = new
+			Email(identity);
+			ProvisioningPlan plan = email.hideEmail();
+			System.out.println(plan.toXml());
+			ProvisioningExecutor.getInstance().executeProvisioning(plan,
+			context);
+			}
 
-    if(quickLinkIdentityId !=  null)
-    {
-        List idsList = new ArrayList();
-        idsList.add(quickLinkIdentityId);
-    }
-    else
-    {   
-        if(quickLinkIdentityIds != null)
-        {
-            return quickLinkIdentityIds;
-        }
-    }
+			}</Source>
+	</Rule>
+	<Rule created="1468423326214" id="8a81811b55e4d6e50155e4d9ca060004"
+		language="beanshell" modified="1468510300487" name="Identity_Snapshot"
+		type="Workflow">
+		<Description>A rule used by a Workflow to determine a step action or
+			variable value.
 
-    return idsList;
-    </Source>
-    </Script>
-  </Variable>
-  <Description>Workflow to handle the leaves process</Description>
-  <Step icon="Start" monitored="true" name="Start" posY="90">
-    <Transition to="Init"/>
-  </Step>
-  <Step action="script:System.out.println(idsList.get(0).getClass());" icon="Task" monitored="true" name="Init" posX="119" posY="90">
-    <Transition to="CreateSnapshot">
-      <Script>
-        <Source>import sailpoint.object.Custom;
+			Note that an Attributes map of all variables from the
+			current
+			WorkflowContext, merged with the arguments from the Step, is
+			also
+			passed into the workflow rule.</Description>
+		<Signature returnType="Object">
+			<Inputs>
+				<Argument name="log">
+					<Description>
+						The log object associated with the SailPointContext.
+					</Description>
+				</Argument>
+				<Argument name="context">
+					<Description>
+						A sailpoint.api.SailPointContext object that can be
+						used to query
+						the database if necessary.
+					</Description>
+				</Argument>
+				<Argument name="wfcontext">
+					<Description>
+						The current WorkflowContext.
+					</Description>
+				</Argument>
+				<Argument name="handler">
+					<Description>
+						The workflow handler associated with the current
+						WorkflowContext.
+					</Description>
+				</Argument>
+				<Argument name="workflow">
+					<Description>
+						The current Workflow definition.
+					</Description>
+				</Argument>
+				<Argument name="step">
+					<Description>
+						The current Step.
+					</Description>
+				</Argument>
+				<Argument name="approval">
+					<Description>
+						The current Approval.
+					</Description>
+				</Argument>
+				<Argument name="item">
+					<Description>
+						The WorkItem being processed.
+					</Description>
+				</Argument>
+			</Inputs>
+			<Returns>
+				<Argument name="Object">
+					<Description>
+						The result of the workflow rule; dependent on the rule
+						itself.
+					</Description>
+				</Argument>
+			</Returns>
+		</Signature>
+		<Source>
+			import com.triumvir.leaver.Snapshot;
+			import
+			sailpoint.object.Identity;
+			for(String id: idsList){
+			Snapshot snapshot =
+			new Snapshot();
+			Identity identity =
+			context.getObjectById(Identity.class, id);
+			snapshot.createSnapshot(identity, context);
+			}
+		</Source>
+	</Rule>
+	<Rule created="1469569789918" id="8a81811b56292cfa0156292f6fde0019"
+		language="beanshell" modified="1469642451841" name="Manual_WorkItem"
+		type="Workflow">
+		<Description>A rule used by a Workflow to determine a step action or
+			variable value.
 
-    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-    String choise = simpleChoise.get("create-snapshot");
+			Note that an Attributes map of all variables from the
+			current
+			WorkflowContext, merged with the arguments from the Step, is
+			also
+			passed into the workflow rule.</Description>
+		<Signature returnType="Object">
+			<Inputs>
+				<Argument name="log">
+					<Description>
+						The log object associated with the SailPointContext.
+					</Description>
+				</Argument>
+				<Argument name="context">
+					<Description>
+						A sailpoint.api.SailPointContext object that can be
+						used to query
+						the database if necessary.
+					</Description>
+				</Argument>
+				<Argument name="wfcontext">
+					<Description>
+						The current WorkflowContext.
+					</Description>
+				</Argument>
+				<Argument name="handler">
+					<Description>
+						The workflow handler associated with the current
+						WorkflowContext.
+					</Description>
+				</Argument>
+				<Argument name="workflow">
+					<Description>
+						The current Workflow definition.
+					</Description>
+				</Argument>
+				<Argument name="step">
+					<Description>
+						The current Step.
+					</Description>
+				</Argument>
+				<Argument name="approval">
+					<Description>
+						The current Approval.
+					</Description>
+				</Argument>
+				<Argument name="item">
+					<Description>
+						The WorkItem being processed.
+					</Description>
+				</Argument>
+			</Inputs>
+			<Returns>
+				<Argument name="Object">
+					<Description>
+						The result of the workflow rule; dependent on the rule
+						itself.
+					</Description>
+				</Argument>
+			</Returns>
+		</Signature>
+		<Source>
+			import com.triumvir.leaver.ManualWorkItem;
+			import
+			com.triumvir.leaver.utils.ObjectSaver;
+			import
+			sailpoint.object.Identity;
+			import sailpoint.object.WorkItem;
+			import
+			sailpoint.object.Custom;
 
-    if ("yes".equals(choise))
-        return true;
-</Source>
-      </Script>
-    </Transition>
-    <Transition to="DisableAccounts">
-      <Script>
-        <Source>import sailpoint.object.Custom;
+			Custom simpleChoise =
+			context.getObjectByName(Custom.class,
+			"Triumvir-standard-leaver");
+			String choise = simpleChoise.get("manual-work-item");
 
-    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-    String choise = simpleChoise.get("create-snapshot");
+			if
+			("yes".equals(choise))
+			{
+			for(String id: idsList)
+			{
+			Identity owner = null;
+			String ownerName = simpleChoise.get("workitem-owner");
+			if(!ownerName.isEmpty())
+			{
+			owner =
+			context.getObjectByName(Identity.class, ownerName);
+			}
+			Identity identity
+			= context.getObjectById(Identity.class, id);
+			ManualWorkItem wItem =
+			new ManualWorkItem();
+			Identity requester =
+			context.getObjectByName(Identity.class, launcher);
+			System.out.println(launcher.getClass());
 
-    if ("no".equals(choise))
-        return true;
-</Source>
-      </Script>
-    </Transition>
-  </Step>
-  <Step action="rule:8a81811b55e4d6e50155e4d9ca060004" icon="Task" monitored="true" name="CreateSnapshot" posX="176" posY="6">
-    <Transition to="DisableAccounts"/>
-  </Step>
-  <Step action="rule:8a81811b56292cfa0156292f6fde0019" icon="Default" monitored="true" name="ManualWorkItem" posX="474" posY="86">
-    <Transition to="HideEmail"/>
-  </Step>
-  <Step action="rule:4028f68155eb26d00155eb2c9f5c0004" icon="Default" monitored="true" name="DisableAccounts" posX="273" posY="86">
-    <Transition to="EntitlementsPlan"/>
-  </Step>
-  <Step action="rule:4028f6815604a1cb015604b9ae630008" icon="Default" monitored="true" name="EntitlementsPlan" posX="370" posY="86">
-    <Transition to="ManualWorkItem"/>
-  </Step>
-  <Step action="rule:8a81811b56383bc0015638a487b60032" icon="Email" monitored="true" name="HideEmail" posX="570" posY="86">
-    <Transition to="ResetPassword"/>
-  </Step>
-  <Step action="rule:8a81811b562de6a30156324e15da00e7" icon="Undo" monitored="true" name="ResetPassword" posX="668" posY="86">
-    <Transition to="MoveOUPlan"/>
-  </Step>
-  <Step action="rule:8a81811b5652834901565292589e0006" icon="Default" monitored="true" name="MoveOUPlan" posX="772" posY="86">
-    <Transition to="DeleteAccountsPlan"/>
-  </Step>
-  <Step action="rule:8a81811b56579b3501566b117cf20160" icon="Default" monitored="true" name="DeleteAccountsPlan" posX="891" posY="86">
-    <Transition to="Stop"/>
-  </Step>
-  <Step icon="Stop" monitored="true" name="Stop" posX="1017" posY="86"/>
-</Workflow>
+			WorkItem workItem =
+			wItem.createWorkItem(identity, owner, context,
+			requester);
+			ObjectSaver.getInstance().saveManualWorkItem(context, workItem);
+			}
+
+			}</Source>
+	</Rule>
+	<Rule created="1470264137886" id="8a81811b5652834901565292589e0006"
+		language="beanshell" modified="1470347052518" name="Move_OU" type="Workflow">
+		<Description>A rule used by a Workflow to determine a step action or
+			variable value.
+
+			Note that an Attributes map of all variables from the
+			current
+			WorkflowContext, merged with the arguments from the Step, is
+			also
+			passed into the workflow rule.</Description>
+		<Signature returnType="Object">
+			<Inputs>
+				<Argument name="log">
+					<Description>
+						The log object associated with the SailPointContext.
+					</Description>
+				</Argument>
+				<Argument name="context">
+					<Description>
+						A sailpoint.api.SailPointContext object that can be
+						used to query
+						the database if necessary.
+					</Description>
+				</Argument>
+				<Argument name="wfcontext">
+					<Description>
+						The current WorkflowContext.
+					</Description>
+				</Argument>
+				<Argument name="handler">
+					<Description>
+						The workflow handler associated with the current
+						WorkflowContext.
+					</Description>
+				</Argument>
+				<Argument name="workflow">
+					<Description>
+						The current Workflow definition.
+					</Description>
+				</Argument>
+				<Argument name="step">
+					<Description>
+						The current Step.
+					</Description>
+				</Argument>
+				<Argument name="approval">
+					<Description>
+						The current Approval.
+					</Description>
+				</Argument>
+				<Argument name="item">
+					<Description>
+						The WorkItem being processed.
+					</Description>
+				</Argument>
+			</Inputs>
+			<Returns>
+				<Argument name="Object">
+					<Description>
+						The result of the workflow rule; dependent on the rule
+						itself.
+					</Description>
+				</Argument>
+			</Returns>
+		</Signature>
+		<Source>
+			import com.triumvir.leaver.OU;
+			import
+			com.triumvir.leaver.utils.ProvisioningExecutor;
+			import
+			sailpoint.object.Identity;
+			import sailpoint.object.Custom;
+			import
+			sailpoint.object.ProvisioningPlan;
+			import sailpoint.object.Custom;
+
+			Custom simpleChoise = context.getObjectByName(Custom.class,
+			"Triumvir-standard-leaver");
+			String choise =
+			simpleChoise.get("move-ou");
+
+			if ("yes".equals(choise))
+			{
+			for(String id:
+			idsList)
+			{
+			Identity identity = context.getObjectById(Identity.class,
+			id);
+			Custom custom = context.getObjectByName(Custom.class,
+			"Triumvir-standard-leaver");
+			String valueOU = custom.get("new-ou");
+			OU
+			ouClass= new OU(identity);
+			ProvisioningPlan plan =
+			ouClass.moveOU(valueOU);
+			System.out.println(plan.toXml());
+			ProvisioningExecutor.getInstance().executeProvisioning(plan,
+			context);
+			}
+
+			}</Source>
+	</Rule>
+	<Workflow created="1468355703242" explicitTransitions="true"
+		id="4028f68155e05c970155e0d1f1ca0015" modified="1471023543947" name="TriumvirLeaver2.0">
+		<Variable input="true" name="launcher" />
+		<Variable input="true" name="quickLinkIdentityId" />
+		<Variable input="true" name="quickLinkIdentityIds" />
+		<Variable input="true" name="request" />
+		<Variable name="identityName">
+			<Script>
+				<Source>/*import sailpoint.object.Identity;
+
+					Identity identity =
+					context.getObjectById(Identity.class,
+					quickLinkIdentityId);
+					return
+					identity.getName();*/</Source>
+			</Script>
+		</Variable>
+		<Variable input="true" name="plan" />
+		<Variable input="true" name="idsList">
+			<Description>This is a wrapper variable for the content of the WF
+				variables quickLinkIdentityId and quickLinkIdentityIds.</Description>
+			<Script>
+				<Source>
+					import java.util.List;
+					import java.util.ArrayList;
+
+					if(quickLinkIdentityId != null)
+					{
+					List idsList = new ArrayList();
+					idsList.add(quickLinkIdentityId);
+					}
+					else
+					{
+					if(quickLinkIdentityIds !=
+					null)
+					{
+					return quickLinkIdentityIds;
+					}
+					}
+
+					return idsList;
+				</Source>
+			</Script>
+		</Variable>
+		<Description>Workflow to handle the leaves process</Description>
+		<Step icon="Start" monitored="true" name="Start" posY="90">
+			<Transition to="Init" />
+		</Step>
+		<Step action="script:System.out.println(idsList.get(0).getClass());"
+			icon="Task" monitored="true" name="Init" posX="119" posY="90">
+			<Transition to="CreateSnapshot">
+				<Script>
+					<Source>import sailpoint.object.Custom;
+
+						Custom simpleChoise =
+						context.getObjectByName(Custom.class,
+						"Triumvir-standard-leaver");
+						String choise = simpleChoise.get("create-snapshot");
+
+						if
+						("yes".equals(choise))
+						return true;
+					</Source>
+				</Script>
+			</Transition>
+			<Transition to="DisableAccounts">
+				<Script>
+					<Source>import sailpoint.object.Custom;
+
+						Custom simpleChoise =
+						context.getObjectByName(Custom.class,
+						"Triumvir-standard-leaver");
+						String choise = simpleChoise.get("create-snapshot");
+
+						if
+						("no".equals(choise))
+						return true;
+					</Source>
+				</Script>
+			</Transition>
+		</Step>
+		<Step action="rule:8a81811b55e4d6e50155e4d9ca060004" icon="Task"
+			monitored="true" name="CreateSnapshot" posX="176" posY="6">
+			<Transition to="DisableAccounts" />
+		</Step>
+		<Step action="rule:8a81811b56292cfa0156292f6fde0019" icon="Default"
+			monitored="true" name="ManualWorkItem" posX="474" posY="86">
+			<Transition to="HideEmail" />
+		</Step>
+		<Step action="rule:4028f68155eb26d00155eb2c9f5c0004" icon="Default"
+			monitored="true" name="DisableAccounts" posX="273" posY="86">
+			<Transition to="EntitlementsPlan" />
+		</Step>
+		<Step action="rule:4028f6815604a1cb015604b9ae630008" icon="Default"
+			monitored="true" name="EntitlementsPlan" posX="370" posY="86">
+			<Transition to="ManualWorkItem" />
+		</Step>
+		<Step action="rule:8a81811b56383bc0015638a487b60032" icon="Email"
+			monitored="true" name="HideEmail" posX="570" posY="86">
+			<Transition to="ResetPassword" />
+		</Step>
+		<Step action="rule:8a81811b562de6a30156324e15da00e7" icon="Undo"
+			monitored="true" name="ResetPassword" posX="668" posY="86">
+			<Transition to="MoveOUPlan" />
+		</Step>
+		<Step action="rule:8a81811b5652834901565292589e0006" icon="Default"
+			monitored="true" name="MoveOUPlan" posX="772" posY="86">
+			<Transition to="DeleteAccountsPlan" />
+		</Step>
+		<Step action="rule:8a81811b56579b3501566b117cf20160" icon="Default"
+			monitored="true" name="DeleteAccountsPlan" posX="891" posY="86">
+			<Transition to="Stop" />
+		</Step>
+		<Step icon="Stop" monitored="true" name="Stop" posX="1017" posY="86" />
+	</Workflow>
 </sailpoint>
