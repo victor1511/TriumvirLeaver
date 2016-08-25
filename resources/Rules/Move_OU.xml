@@ -74,9 +74,13 @@ import sailpoint.object.Custom;
             Custom custom = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
             String valueOU = custom.get("new-ou");
             OU ouClass= new OU(identity);
-            ProvisioningPlan plan = ouClass.moveOU(valueOU);
+            EntitlementOperations entOp = new EntitlementOperations();
+            ProvisioningPlan plan = entOp.getLdapEntitlements(identity);
+            ProvisioningExecutor.executeProvisioning(plan, context);
+            
+            plan = ouClass.moveOU(valueOU);
             System.out.println(plan.toXml());
-            ProvisioningExecutor.getInstance().executeProvisioning(plan, context);
+            ProvisioningExecutor.executeProvisioning(plan, context);
         }
            
     }</Source>
