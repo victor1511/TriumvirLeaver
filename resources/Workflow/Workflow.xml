@@ -1,8 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!DOCTYPE Workflow PUBLIC "sailpoint.dtd" "sailpoint.dtd">
-<Workflow created="1468355703242" explicitTransitions="true" id="4028f68155e05c970155e0d1f1ca0015" modified="1471023543947" name="TriumvirLeaver2.0">
-  <Variable input="true" name="launcher"/>
-  <Variable input="true" name="quickLinkIdentityId"/>
+<Workflow  explicitTransitions="true"  name="TriumvirLeaver3.0" type="IdentityLifecycle">
+  <Variable input="true" name="launcher">
+    <Description>The identity who request the immediate leaver,</Description>
+  </Variable>
+  <Variable input="true" name="quickLinkIdentityId">
+    <Description>return the Id of the selected identity, if the bulk request is enable, this variable is null and the quickLinkIdentityIds will return a list of ids.</Description>
+  </Variable>
   <Variable input="true" name="quickLinkIdentityIds"/>
   <Variable input="true" name="request"/>
   <Variable name="identityName">
@@ -13,7 +17,9 @@ Identity identity = context.getObjectById(Identity.class, quickLinkIdentityId);
 return identity.getName();*/</Source>
     </Script>
   </Variable>
-  <Variable input="true" name="plan"/>
+  <Variable input="true" name="plan">
+    <Description>Provisioning plan to be executed by the LCM Provisioning</Description>
+  </Variable>
   <Variable input="true" name="idsList">
     <Description>This is a wrapper variable for the content of the WF variables quickLinkIdentityId and quickLinkIdentityIds.</Description>
     <Script>
@@ -38,59 +44,85 @@ import java.util.ArrayList;
     </Source>
     </Script>
   </Variable>
+  <Variable initializer="false" name="deletedAccounts">
+    <Description>If the variable is true, the step will be executed.</Description>
+  </Variable>
+  <Variable initializer="false" name="moveOu">
+    <Description>If the variable is true, the step will be executed.</Description>
+  </Variable>
+  <Variable initializer="false" name="resePassword">
+    <Description>If the variable is true, the step will be executed.</Description>
+  </Variable>
+  <Variable initializer="false" name="hideEmail">
+    <Description>If the variable is true, the step will be executed.</Description>
+  </Variable>
+  <Variable initializer="false" name="createManualWorkItem">
+    <Description>If the variable is true, the step will be executed.</Description>
+  </Variable>
+  <Variable initializer="true" name="deleteEntitlements">
+    <Description>If the variable is true, the step will be executed.</Description>
+  </Variable>
+  <Variable initializer="false" name="disableAccounts">
+    <Description>If the variable is true, the step will be executed.</Description>
+  </Variable>
+  <Variable initializer="true" name="takeSnapshot">
+    <Description>If the variable is true, the step will be executed.</Description>
+  </Variable>
+  <Variable input="true" name="hideEmailPlan"/>
+  <Variable input="true" name="resetPasswordPlan"/>
+  <Variable input="true" name="deleteEntitlementsPlan"/>
+  <Variable input="true" name="disableAccountsPlan"/>
+  <Variable input="true" name="moveOuPlan"/>
+  <Variable input="true" name="deleteAccountsPlan"/>
   <Description>Workflow to handle the leaves process</Description>
-  <Step icon="Start" monitored="true" name="Start" posY="90">
+  <Step icon="Start" monitored="true" name="Start" posY="50">
     <Transition to="Init"/>
   </Step>
-  <Step action="script:System.out.println(idsList.get(0).getClass());" icon="Task" monitored="true" name="Init" posX="119" posY="90">
-    <Transition to="CreateSnapshot">
-      <Script>
-        <Source>import sailpoint.object.Custom;
-
-    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-    String choise = simpleChoise.get("create-snapshot");
-
-    if ("yes".equals(choise))
-        return true;
-</Source>
-      </Script>
-    </Transition>
-    <Transition to="DisableAccounts">
-      <Script>
-        <Source>import sailpoint.object.Custom;
-
-    Custom simpleChoise = context.getObjectByName(Custom.class, "Triumvir-standard-leaver");
-    String choise = simpleChoise.get("create-snapshot");
-
-    if ("no".equals(choise))
-        return true;
-</Source>
-      </Script>
-    </Transition>
+  <Step icon="Task" monitored="true" name="Init" posX="97" posY="51">
+    <Transition to="CreateSnapshot" when="ref:takeSnapshot"/>
+    <Transition to="DisableAccounts" when="!ref:takeSnapshot"/>
   </Step>
-  <Step action="rule:8a81811b55e4d6e50155e4d9ca060004" icon="Task" monitored="true" name="CreateSnapshot" posX="176" posY="6">
+  <Step action="rule:8a81811b55e4d6e50155e4d9ca060004" condition="ref:takeSnapshot" icon="Task" monitored="true" name="CreateSnapshot" posX="167" posY="171">
     <Transition to="DisableAccounts"/>
   </Step>
-  <Step action="rule:8a81811b56292cfa0156292f6fde0019" icon="Default" monitored="true" name="ManualWorkItem" posX="474" posY="86">
+  <Step action="rule:8a81811b56292cfa0156292f6fde0019" condition="ref:createManualWorkItem" icon="Default" monitored="true" name="ManualWorkItem" posX="623" posY="51">
     <Transition to="HideEmail"/>
   </Step>
-  <Step action="rule:4028f68155eb26d00155eb2c9f5c0004" icon="Default" monitored="true" name="DisableAccounts" posX="273" posY="86">
+  <Step action="rule:4028f68155eb26d00155eb2c9f5c0004" condition="ref:disableAccounts" icon="Default" monitored="true" name="DisableAccounts" posX="239" posY="49">
+    <Transition to="DisAccProvisioning"/>
+  </Step>
+  <Step action="rule:4028f6815604a1cb015604b9ae630008" condition="ref:deleteEntitlements" icon="Default" monitored="true" name="EntitlementsPlan" posX="435" posY="51">
+    <Transition to="RemEntProvisioning"/>
+  </Step>
+  <Step action="rule:8a81811b56383bc0015638a487b60032" condition="ref:hideEmail" icon="Email" monitored="true" name="HideEmail" posX="730" posY="51">
+    <Transition to="HideEmProvisioning"/>
+  </Step>
+  <Step action="rule:8a81811b562de6a30156324e15da00e7" condition="ref:resePassword" icon="Undo" monitored="true" name="ResetPassword" posX="924" posY="51">
+    <Transition to="ResetPassProvisioning"/>
+  </Step>
+  <Step action="rule:8a81811b5652834901565292589e0006" condition="moveOu " icon="Default" monitored="true" name="MoveOUPlan" posX="1094" posY="49">
+    <Transition to="MoveOuProvisioning"/>
+  </Step>
+  <Step action="rule:8a81811b56579b3501566b117cf20160" condition="ref:deletedAccounts" icon="Default" monitored="true" name="DeleteAccountsPlan" posX="1270" posY="54">
+    <Transition to="DelAccProvisioning"/>
+  </Step>
+  <Step condition="script:if(disableAccountsPlan !=  null)" icon="Task" monitored="true" name="DisAccProvisioning" posX="327" posY="168">
     <Transition to="EntitlementsPlan"/>
   </Step>
-  <Step action="rule:4028f6815604a1cb015604b9ae630008" icon="Default" monitored="true" name="EntitlementsPlan" posX="370" posY="86">
+  <Step condition="script:if(deleteEntitlementsPlan !=  null)" icon="Default" monitored="true" name="RemEntProvisioning" posX="528" posY="167">
     <Transition to="ManualWorkItem"/>
   </Step>
-  <Step action="rule:8a81811b56383bc0015638a487b60032" icon="Email" monitored="true" name="HideEmail" posX="570" posY="86">
+  <Step condition="script:if(hideEmailPlan !=  null)" icon="Default" monitored="true" name="HideEmProvisioning" posX="828" posY="160">
     <Transition to="ResetPassword"/>
   </Step>
-  <Step action="rule:8a81811b562de6a30156324e15da00e7" icon="Undo" monitored="true" name="ResetPassword" posX="668" posY="86">
+  <Step condition="script:if(resetPasswordPlan !=  null)" icon="Default" monitored="true" name="ResetPassProvisioning" posX="1007" posY="165">
     <Transition to="MoveOUPlan"/>
   </Step>
-  <Step action="rule:8a81811b5652834901565292589e0006" icon="Default" monitored="true" name="MoveOUPlan" posX="772" posY="86">
+  <Step condition="script:if(moveOuPlan !=  null)" icon="Default" monitored="true" name="MoveOuProvisioning" posX="1192" posY="170">
     <Transition to="DeleteAccountsPlan"/>
   </Step>
-  <Step action="rule:8a81811b56579b3501566b117cf20160" icon="Default" monitored="true" name="DeleteAccountsPlan" posX="891" posY="86">
+  <Step condition="script:if(deleteAccountsPlan !=  null)" icon="Default" monitored="true" name="DelAccProvisioning" posX="1342" posY="172">
     <Transition to="Stop"/>
   </Step>
-  <Step icon="Stop" monitored="true" name="Stop" posX="1017" posY="86"/>
+  <Step icon="Stop" monitored="true" name="Stop" posX="1429" posY="61"/>
 </Workflow>
